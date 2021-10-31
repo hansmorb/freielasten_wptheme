@@ -1,0 +1,56 @@
+/* -------------------------------------------------------------------------------
+ * START
+ * -------------------------------------------------------------------------------
+ * Style für das Accordion Element
+ * von: https://www.w3schools.com/howto/howto_js_accordion.asp
+ * Eingesetzt in: inc/cb-item-single_acf.php
+ * --------------------------------------------------------------------------------
+ * START
+ * --------------------------------------------------------------------------------
+*/
+.accordion {
+  background-color: var(--nv-text-color);
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: var(--nv-c-1);
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+.accordion:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  float: right;
+  margin-left: 5px;
+}
+
+button.active:after{
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+/* -------------------------------------------------------------------------------
+ * ENDE
+ * -------------------------------------------------------------------------------
+ * Style für das Accordion Element
+ * von: https://www.w3schools.com/howto/howto_js_accordion.asp
+ * Eingesetzt in: inc/cb-item-single_acf.php für die Accordionerstellung
+ * --------------------------------------------------------------------------------
+ * ENDE
+ * --------------------------------------------------------------------------------
+*/
