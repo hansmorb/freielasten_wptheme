@@ -79,7 +79,7 @@ function acf_populate_menu($items, $args){
 							$itemLocation_tax = get_sub_field('standort_cat');
 							$itemLocation_tax_slug = get_term($itemLocation_tax)->slug;
 							$itemLocation_tax_name = get_term($itemLocation_tax)->name;
-							$itemLocation_tax_url = get_term_link(get_term($loc_cat_tax)) . '?itemcat=' . $sub_tax; //Fügt zusätzliche Variable hinzu, wird von taxonomy-cb_locations_category.php abgerufen
+							$itemLocation_tax_url = get_term_link(get_term($itemLocation_tax)) . '?itemcat=' . $sub_tax; //Fügt zusätzliche Variable hinzu, wird von taxonomy-cb_locations_category.php abgerufen
 
 							$itemLocation_ico = get_sub_field('standort_icon');
 							$itemLocation_itemList = get_cb_items_by_category_and_location($subMenu_tax_slug, $setting_ShowBookable, $itemLocation_tax_slug);
