@@ -19,13 +19,13 @@ function returnsvg_html($svg_url,$svg_color){
 /* RETURN: Array mit Term und Icon, dadrunter die Items als Post Object*/
 
 function menu_create_itemlines ($cb_item_postlist,$menucolor) {
-	$itemlines_html = '<ul class="sub-menu">';;
+	$itemlines_html = '<ul class="sub-menu">';
 	foreach ($cb_item_postlist as $cb_item_post) {
 		$cb_item_post_ID = $cb_item_post->ID;
 		$cb_item_post_title = $cb_item_post->post_title;
 		$cb_item_post_permalink = get_permalink($cb_item_post);
 		$cb_item_post_ico = get_field("icon",$cb_item_post_ID);
-		$cb_item_post_ico_html = returnsvg_html($sub_item["itemicon"],$menucolor)
+		$cb_item_post_ico_html = returnsvg_html($sub_item["itemicon"],$menucolor);
 
 		$itemlines_html .= '<li class="menu-item"> <a href="'.$cb_item_post_permalink.'">'. $cb_item_post_ico_html .'<span> '.$cb_item_post_title.'</span></a></li>';
 	}
@@ -64,7 +64,7 @@ function acf_populate_menu($items, $args){
 				$subMenu_tax_slug = get_term($sub_tax)->slug; // Wandelt die tax id in den Slug um (zur Übergabe an meine FUnktionen)
 				$subMenu_ico = get_sub_field('cat_ico'); //Icon für die entsprechende Kategorie
 				$subMenu_ico_url = $sub_ico['url']; //Wandelt Icon Element in URL um
-				$subMenu_ico_html = returnsvg_html($sub_ico_url,$setting_menucolor)
+				$subMenu_ico_html = returnsvg_html($sub_ico_url,$setting_menucolor);
 				$subMenu_name = get_sub_field('cat_name'); //Klarname der entsprechenden Kategorie
 				$subMenu_linkedPage = get_sub_field('linkingpage'); //Seite über die Kategorie
 
@@ -110,6 +110,7 @@ function acf_populate_menu($items, $args){
 	// return
 	return $items;
 
+}
 }
 
 add_filter('wp_nav_menu_items', 'acf_populate_menu', 10, 2);
