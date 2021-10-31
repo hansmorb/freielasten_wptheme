@@ -1,8 +1,5 @@
 # freielasten_wptheme
-/**
- * --------------------------------------------------------------------------------------
- *  / ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \
-|  /~~\                                                                                                                                                                                             /~~\  |
+
 |\ \   |  Freie Lasten Theme 0.6 (31.10.21 12:17) auf den Schultern des Neve Themes                                                                                                                |   / /|
 | \   /|  Funktionen: - ACF mit cb-item-single.php Template verbinden (inc/cb-items-single_acf.php) 80%done
 |\   / |              -- Automatische Post Grids die Möglichkeit der Buchbarkeit eines Artikels berücksichtigen 100% done
