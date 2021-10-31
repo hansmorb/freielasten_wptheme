@@ -100,8 +100,8 @@ function acf_populate_menu($items, $args){
 					$subMenu_html .= '</li>'; //Listenpunkt für jeweilige Kategorie schließen
 				} //Ende If sub_itemlist hat Items
 			endwhile; //Ende iterieren durch Kategorien
-			$subMenu_html='</ul>';	//Gesamten Ausleihen Unterpunkt schließen
 			$parentItem_html .= $subMenu_html; //Fügt SubItems dem ParentItem hinzu
+			$subMenu_html='</ul>';	//Gesamten Ausleihen Unterpunkt schließen
 			$parentItem_html .= '</li>' ; //Schließt Listenpunkt vom parent Item
 			$parentItem_css = '<style> .menu_ausleihen a{color:'.$setting_menucolor.'!important;}.menu_ausleihen a::after{ background-color: '.$setting_menucolor.'!important; }</style>'; //Fügt einfach so ultra random den Style Ende an und macht sich auch noch selber super important, ähnlich wie der Sack der das geschrieben hat, you are welcome!
 			// append html
