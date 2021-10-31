@@ -25,7 +25,7 @@ function menu_create_itemlines ($cb_item_postlist,$menucolor) {
 		$cb_item_post_title = $cb_item_post->post_title;
 		$cb_item_post_permalink = get_permalink($cb_item_post);
 		$cb_item_post_ico = get_field("icon",$cb_item_post_ID);
-		$cb_item_post_ico_html = returnsvg_html($sub_item["itemicon"],$menucolor);
+		$cb_item_post_ico_html = returnsvg_html($cb_item_post_ico,$menucolor);
 
 		$itemlines_html .= '<li class="menu-item"> <a href="'.$cb_item_post_permalink.'">'. $cb_item_post_ico_html .'<span> '.$cb_item_post_title.'</span></a></li>';
 	}
@@ -79,14 +79,14 @@ function acf_populate_menu($items, $args){
 							$itemLocation_tax = get_sub_field('standort_cat');
 							$itemLocation_tax_slug = get_term($itemLocation_tax)->slug;
 							$itemLocation_tax_name = get_term($itemLocation_tax)->name;
-							$itemLocation_tax_url = get_term_link(get_term($itemLocation_tax)) . '?itemcat=' . $sub_tax; //Fügt zusätzliche Variable hinzu, wird von taxonomy-cb_locations_category.php abgerufen
+							$itemLocation_tax_url = get_term_link(get_term($itemLocation_tax)) . '?itemcat=' . $subMenu_tax; //Fügt zusätzliche Variable hinzu, wird von taxonomy-cb_locations_category.php abgerufen
 
 							$itemLocation_ico = get_sub_field('standort_icon');
 							$itemLocation_itemList = get_cb_items_by_category_and_location($subMenu_tax_slug, $setting_ShowBookable, $itemLocation_tax_slug);
 
 							if ($itemLocation_itemList) {
 								$itemLocation_html = '<li class="menu-item-has-children"> <a href="'.$itemLocation_tax_url.'">'.$itemLocation_ico.'<span> '.$itemLocation_tax_name. '</span>' . $sub_html_caret . '</a>';
-								$itemLocation_html .= menu_create_itemlines($itemLocation_itemList);
+								$itemLocation_html .= menu_create_itemlines($itemLocation_itemList,$setting_menucolor);
 								$itemLocation_html .= '</li>'; //Liste für Submenü Location schließen + Listenpunkt schließen
 							}
 						endwhile; // Ende iterieren durch Standorte für Kategorie
