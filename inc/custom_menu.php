@@ -61,10 +61,10 @@ function acf_populate_menu($items, $args){
 			while( have_rows('kategorien_fur_die_ausleihe',$menu) ) : the_row(); //Iteratet durch die definierten Kategorien (Repeater Feld)
 				//vars aus dem Repeater Feld
 				$subMenu_tax = get_sub_field('kategorie'); //Taxonomie ID von der definierten Kategorie (die aufgefüllt werden soll)
-				$subMenu_tax_slug = get_term($sub_tax)->slug; // Wandelt die tax id in den Slug um (zur Übergabe an meine FUnktionen)
+				$subMenu_tax_slug = get_term($subMenu_tax)->slug; // Wandelt die tax id in den Slug um (zur Übergabe an meine FUnktionen)
 				$subMenu_ico = get_sub_field('cat_ico'); //Icon für die entsprechende Kategorie
 				$subMenu_ico_url = $sub_ico['url']; //Wandelt Icon Element in URL um
-				$subMenu_ico_html = returnsvg_html($sub_ico_url,$setting_menucolor);
+				$subMenu_ico_html = returnsvg_html($subMenu_ico_url,$setting_menucolor);
 				$subMenu_name = get_sub_field('cat_name'); //Klarname der entsprechenden Kategorie
 				$subMenu_linkedPage = get_sub_field('linkingpage'); //Seite über die Kategorie
 
