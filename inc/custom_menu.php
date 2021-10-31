@@ -52,7 +52,7 @@ function acf_populate_menu($items, $args){
 		$parentItem_logo = get_field('icon_ausleihemenue', $menu); //das Icon vor "Ausleihen"
 		$parentItem_name = get_field( 'name_ausleihmenu', $menu); //der Titel des "Ausleihen" Menüs
 		$parentItem_url = get_field( 'dazugehorige_seite_ausleihmenu', $menu ); //die URL der Hauptausleihseite
-		$parentItem_logo_html = returnsvg_html($logo["url"],$setting_menucolor);
+		$parentItem_logo_html = returnsvg_html($parentItem_logo["url"],$setting_menucolor);
 		$parentItem_html = '<li class="menu_ausleihen menu-item menu-item-has-children"><a href="'.esc_url($parentItem_url).'">'.$parentItem_logo_html.$parentItem_name.$html_caret.'</a>';
 
 
