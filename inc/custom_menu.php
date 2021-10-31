@@ -63,13 +63,13 @@ function acf_populate_menu($items, $args){
 				$subMenu_tax = get_sub_field('kategorie'); //Taxonomie ID von der definierten Kategorie (die aufgefüllt werden soll)
 				$subMenu_tax_slug = get_term($subMenu_tax)->slug; // Wandelt die tax id in den Slug um (zur Übergabe an meine FUnktionen)
 				$subMenu_ico = get_sub_field('cat_ico'); //Icon für die entsprechende Kategorie
-				$subMenu_ico_url = $sub_ico['url']; //Wandelt Icon Element in URL um
+				$subMenu_ico_url = $subMenu_ico['url']; //Wandelt Icon Element in URL um
 				$subMenu_ico_html = returnsvg_html($subMenu_ico_url,$setting_menucolor);
 				$subMenu_name = get_sub_field('cat_name'); //Klarname der entsprechenden Kategorie
 				$subMenu_linkedPage = get_sub_field('linkingpage'); //Seite über die Kategorie
 
 				$subMenu_itemlist = get_cb_items_by_category_and_location($subMenu_tax_slug,$setting_ShowBookable); //Checkt erstmal nur, ob für die Kategorie auch Items da sind um welche anzuzeigen
-				if ($sub_itemlist){ //Nur Element hinzufügen wenn es auch items in der Kategorie gibt
+				if ($subMenu_itemlist){ //Nur Element hinzufügen wenn es auch items in der Kategorie gibt
 					$subMenu_html .= '<li class="menu-item-has-children"> <a href="'.$subMenu_linkedPage.'">'. $subMenu_ico_html .'<span> '.$subMenu_name.'</span>' . $sub_html_caret . '</a>'; //Menüpunkt für Kategorie hinzufügen
 					if ($setting_SortByLocation) {
 						$subMenu_html .= '<ul class="sub-menu">';
