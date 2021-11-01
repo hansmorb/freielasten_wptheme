@@ -23,4 +23,6 @@ function cb_items_checkmeta_key( $post_id ) {
 }
 add_action( 'save_post', 'cb_items_checkmeta_key' );
 
+add_action('acfe/fields/button/name=update_bookablemeta', 'cb_items_checkmeta_key', 10, 2); //Adds handler for button in options page
+
  ?>
