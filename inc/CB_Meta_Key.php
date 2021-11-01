@@ -13,10 +13,10 @@ function cb_items_checkmeta_key( $post_id ) {
     if ($items_list) {
       foreach ($items_list as $cb_item) {
         if (cb_item_isBookable($cb_item->ID)) {
-          update_post_meta($cb_item->ID(),'_bookable','1');
+          update_post_meta($cb_item->ID,'_bookable','1');
         }
         else {
-          update_post_meta($cb_item->ID(),'_bookable','0');
+          update_post_meta($cb_item->ID,'_bookable','0');
         }
       }
     }
