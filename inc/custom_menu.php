@@ -29,7 +29,7 @@ function menu_create_itemlines ($cb_item_postlist,$menucolor) {
 
 		$itemlines_html .= '<li class="menu-item"> <a href="'.$cb_item_post_permalink.'">'. $cb_item_post_ico_html .'<span> '.$cb_item_post_title.'</span></a></li>';
 	}
-	$itemlines_html = '</ul>';
+	$itemlines_html .= '</ul>';
 	return $itemlines_html;
 }
 
