@@ -43,5 +43,6 @@ require_once (get_stylesheet_directory() . '/inc/um_honeypot.php'); //UltimateMe
 require_once (get_stylesheet_directory() . '/inc/change_default_wp_login.php'); //WP Standard LOGIN deaktivieren, URLS zu UM URLS ändern
 require_once (get_stylesheet_directory() . '/inc/custom_menu.php'); //Custom Menü
 require_once (get_stylesheet_directory() . '/inc/AdminOptions.php'); //ACF Feld für Optionsmenü
+require_once (get_stylesheet_directory() . '/inc/CB_Meta_Key.php'); //ACF Feld für Optionsmenü
 require_once (get_stylesheet_directory() . '/inc/QueryFunctions.php'); //Alle Custom Funktionen um posts nach bestimmten Kriterien abzufragen
 ?>
