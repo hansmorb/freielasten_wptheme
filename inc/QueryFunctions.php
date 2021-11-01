@@ -114,7 +114,7 @@ function get_cb_items_by_category_and_location($cb_category,$bookableCheck=True,
 
 
 function cb_item_isBookable($cb_item_postID){
-  $locations = \CommonsBooking\Repository\Location::getByItem( $itemId, true );
+  $locations = \CommonsBooking\Repository\Location::getByItem( $cb_item_postID, true );
   if ( count($locations) ) {
     return true;
   }
