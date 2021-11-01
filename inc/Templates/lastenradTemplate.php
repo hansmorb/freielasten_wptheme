@@ -12,6 +12,7 @@ if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
 <div class="cb_item-top-infos">
 <h3>
 	<ul style="list-style-type:none;">
+
 		<li>
 			<i class="fas fa-tachometer-alt"></i>
 			<?php if ( get_field( 'elektrounterstuetzung' ) == 1 ) : ?>
@@ -20,24 +21,30 @@ if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
 				Keine Elektrounterstützung
 			<?php endif; ?>
 		</li>
+
 		<li>
 			<i class="fas fa-weight"></i>
 			Zuladung: <?php the_field( 'zuladung' ); ?> kg
 		</li>
+
 		<?php if( get_field('besonderheiten') ): ?>
 			<li>
 				<i class="fas fa-exclamation-circle"></i>
 				<?php the_field('besonderheiten'); ?>
 			</li>
 		<?php endif; ?>
+
 		<?php if(  get_field('extrainfo') ): ?>
 			<li>
 				<i class="fas fa-info-circle"></i>
 				<?php the_field( 'extrainfo' ); ?>
 			</li>
 		<?php endif; ?>
+
 	</ul>
+
 </h3>
+
 </div> <!-- cb_item-top-infos -->
 
 <?php enqueue_accordion_styles(); ?> <!-- Start der Akkordion Elemente -->
@@ -45,6 +52,7 @@ if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
 <div class="panel">
 	<p>
 	<ul style="list-style-type:none;">
+
 		<li>
 			<?php if ( get_field('spuren') == 'zweirad' ): ?>
 			<i class="fas fa-info-circle"></i> <b>Zweispuriges</b> Lastenrad
@@ -52,16 +60,25 @@ if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
 			<i class="fas fa-info-circle"></i> <b>Dreispuriges</b> Lastenrad
 			<?php endif; ?>
 		</li>
+
 		<?php if(  get_field('motortyp') ): ?>
 			<li>
 				<i class="fas fa-bolt"></i> <b>Motortyp:</b> <?php the_field( 'motortyp' ); ?>
 			</li>
 		<?php endif; ?>
+
 		<?php if(  get_field('akkugroesse') ): ?>
 			<li>
 				<i class="fas fa-battery-full"></i> <b>Akkukapazität:</b> <?php the_field( 'akkugroesse' ); ?> wH
 			</li>
 		<?php endif; ?>
+
+		<?php if(  get_field('ersatzakkus') && get_field('ersatzakkus') >= 1 ): ?>
+			<li>
+				<i class="fas fa-battery-full"></i> <b>Verfügbare Ersatzakkus: </b> <?php the_field( 'ersatzakkus' ); ?>
+			</li>
+		<?php endif; ?>
+
 		<?php if(  get_field('schaltung') ): ?>
 			<li>
 				<i class="fas fa-cogs"></i> <b>Schaltungstyp:</b> <?php the_field( 'schaltung' ); ?>
