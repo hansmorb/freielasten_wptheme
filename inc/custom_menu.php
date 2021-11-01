@@ -89,13 +89,13 @@ function acf_populate_menu($items, $args){
 								$itemLocation_html .= menu_create_itemlines($itemLocation_itemList,$setting_menucolor);
 								$itemLocation_html .= '</li>'; //Liste für Submenü Location schließen + Listenpunkt schließen
 							}
+							$subMenu_html .= $itemLocation_html;
 						endwhile; // Ende iterieren durch Standorte für Kategorie
-						$subMenu_html .= $itemLocation_html;
 						$subMenu_html .= '</ul>';
 					}
 
 					else {
-						$subMenu_html .= menu_create_itemlines($subMenu_itemlist);
+						$subMenu_html .= menu_create_itemlines($subMenu_itemlist,$setting_menucolor);
 					}
 					$subMenu_html .= '</li>'; //Listenpunkt für jeweilige Kategorie schließen
 				} //Ende If sub_itemlist hat Items
