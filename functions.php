@@ -38,6 +38,7 @@ if ( ! function_exists( 'neve_child_load_css' ) ):
 	}
 endif;
 add_action( 'wp_enqueue_scripts', 'neve_child_load_css', 20 );
+require_once(get_stylesheet_directory() . '/inc/acf_field_groups.php'); //ACF Feldgruppen (generiert von ACF)
 require_once (get_stylesheet_directory() . '/inc/cb-item-single_acf.php'); //ACF Integrierung in Commonsbooking
 require_once (get_stylesheet_directory() . '/inc/um_honeypot.php'); //UltimateMember Honeypot (Registrierungsfeld)
 require_once (get_stylesheet_directory() . '/inc/change_default_wp_login.php'); //WP Standard LOGIN deaktivieren, URLS zu UM URLS ändern
