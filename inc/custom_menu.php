@@ -83,13 +83,13 @@ function acf_populate_menu($items, $args){
 
 							$itemLocation_ico = get_sub_field('standort_icon');
 							$itemLocation_itemList = get_cb_items_by_category_and_location($subMenu_tax_slug, $setting_ShowBookable, $itemLocation_tax_slug);
-
+							$itemLocation_html = '';
 							if ($itemLocation_itemList) {
 								$itemLocation_html = '<li class="menu-item-has-children"> <a href="'.$itemLocation_tax_url.'">'.$itemLocation_ico.'<span> '.$itemLocation_tax_name. '</span>' . $sub_html_caret . '</a>';
 								$itemLocation_html .= menu_create_itemlines($itemLocation_itemList,$setting_menucolor);
 								$itemLocation_html .= '</li>'; //Liste für Submenü Location schließen + Listenpunkt schließen
 							}
-							$subMenu_html .= $itemLocation_html;
+							$subMenu_html .= $itemLocation_html; //Item Location code appenden
 						endwhile; // Ende iterieren durch Standorte für Kategorie
 						$subMenu_html .= '</ul>';
 					}
@@ -101,7 +101,7 @@ function acf_populate_menu($items, $args){
 				} //Ende If sub_itemlist hat Items
 			endwhile; //Ende iterieren durch Kategorien
 			$parentItem_html .= $subMenu_html; //Fügt SubItems dem ParentItem hinzu
-			$subMenu_html='</ul>';	//Gesamten Ausleihen Unterpunkt schließen
+			$parentItem_html .= '</ul>';	//Gesamten Ausleihen Unterpunkt schließen
 			$parentItem_html .= '</li>' ; //Schließt Listenpunkt vom parent Item
 			$parentItem_css = '<style> .menu_ausleihen a{color:'.$setting_menucolor.'!important;}.menu_ausleihen a::after{ background-color: '.$setting_menucolor.'!important; }</style>'; //Fügt einfach so ultra random den Style Ende an und macht sich auch noch selber super important, ähnlich wie der Sack der das geschrieben hat, you are welcome!
 			// append html
