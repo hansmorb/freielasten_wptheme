@@ -9,7 +9,7 @@
  * get_post_by_category_and_kupplung($category,array($kupplungen));
  * Als Array kann praktischerweise einfach das Kupplungsfeld benutzt werden, das passt sich an.
  * Optional kann der meta_key für das Kupplungsfeld verändert werden (Standard: Kupplungen)
- * bookableCheck prüft auch, ob der Meta Key _bookable existiert, der wird automatisch durch CB gesetzt (hansgeschrieben in der item_single.php template Funktion)
+ * bookableCheck prüft auch, ob der Meta Key _bookable existiert, der wird automatisch beim Speichern jeglicher Posts gesetzt (CB_Meta_Key.php)
  *
  *---------------------------------------------------------------------------------
  * START Get Post by Category + Kupplung
