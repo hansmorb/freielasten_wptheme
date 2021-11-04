@@ -27,7 +27,7 @@ function my_register_url( $url ) {
     if( is_admin() ) {
         return $url;
     }
-    return "registrieren";
+    return get_site_url() . "/registrieren";
 }
 
 add_filter( 'login_url', 'my_login_url', 10, 2 );
@@ -39,7 +39,7 @@ function my_login_url( $url, $redirect = null ) { //Ersetzt default URL (und dam
     if( $redirect ) {
         $r = "?redirect_to=".esc_attr($redirect);
     }
-    return "anmelden".$r;
+    return get_site_url() . "/anmelden".$r;
 }
 
 ?>
