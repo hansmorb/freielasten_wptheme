@@ -24,6 +24,7 @@ function enqueue_gallery_styles(){
 function enqueue_postgrid_styles(){
 	wp_register_style('postgrid-css', get_stylesheet_directory_uri() . '/inc/css/postgrid.css', __FILE__);
 	wp_enqueue_style('postgrid-css');
+	wp_enqueue_script('postgrid-js', get_stylesheet_directory_uri() . '/inc/js/postGrid.js');
 }
 
 /*-------------------------------------------------------------------------------
@@ -100,24 +101,35 @@ function cb_acfgallery($gallery_slug = 'galerie'){
 function create_postgrid_from_posts($items) {
 	enqueue_postgrid_styles();
 	if ( $items ) {
-			$print = '<div class="gallery-grid">';
+			$print = '<div class="grid__wrapper">';
 			foreach ($items as $item) {
 				$itemID = $item->ID;
 				$item_title = $item->post_title;
-				$itemThumbnailURL = get_the_post_thumbnail_url($item->ID);
-				$print .= '<a href="' . get_permalink($itemID) . '">';
-    			$print .= '<figure class="gallery-frame">';
-				$print .= '<img class="gallery-img" src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'" title="'.$item_title.'">';
-     		    $print .= '<figcaption>'.$item_title.'</figcaption>';
-				$print .= '</figure>';
-				$print .= '</a>';
+				$item_permalink = get_permalink($itemID);
+				$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
+				$itemLocAddress = cb_item_locAdress($itemID);
+				$print .= '<div class="grid">';
+					$print .= '<div class="card">';
+						$print .= '<div class="card__image">';
+						$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
+						$print .= '<div class="card__overlay card__overlay--blue">';
+							$print .= '<div class="card__overlay-content">';
+								$print .= '<a href="'.$item_permalink.'" class="card__title">'.$item_title.'</a>';
+								$print .= '<ul class="card__meta card__meta--last>';
+									$print .= '<li><a href="'.$item_permalink.'"><i class="fas fa-map-marker"></i>'.$itemLocAddress.'</a></li>';
+								$print .= '</ul>';
+							$print .= '</div><!-- end:card__overlay-content -->';
+						$print .= '</div><!-- end:card__overlay -->';
+					$print .= '</div><!-- end:card -->';
+				$print .= '</div><!-- end:grid -->';
 			}
- 			$print .= '</div><!-- end:gallery-grid -->';
+			$print .= '</div><!-- end:grid__wrapper -->';
 			return $print;
 		}
 		else {
 			return False;
 		}
+
 }
 
 /*-------------------------------------------------------------------------------
