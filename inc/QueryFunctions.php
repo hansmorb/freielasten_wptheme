@@ -134,5 +134,15 @@ function cb_item_isItemInLoc($cb_item_postID,$cb_location_loccat_slug)
 	}
 }
 
+function cb_item_locAdress($cb_item_postID)
+{
+	$locations = \CommonsBooking\Repository\Location::getByItem( $cb_item_postID, true );
+	if ( count($locations) ) {
+		return $locations[0]->formattedAddressOneLine();
+	}
+	else {
+		return false;
+	}
+}
 
 ?>
