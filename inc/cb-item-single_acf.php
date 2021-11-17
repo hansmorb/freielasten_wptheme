@@ -24,7 +24,7 @@ function enqueue_gallery_styles(){
 function enqueue_postgrid_styles(){
 	wp_register_style('postgrid-css', get_stylesheet_directory_uri() . '/inc/css/postgrid.css', __FILE__);
 	wp_enqueue_style('postgrid-css');
-	wp_enqueue_script('postgrid-js', get_stylesheet_directory_uri() . '/inc/js/postGrid.js');
+	wp_enqueue_script('postgrid-js', get_stylesheet_directory_uri() . '/inc/js/postGrid.js', array('jquery','imagesloaded','masonry'));
 }
 
 /*-------------------------------------------------------------------------------
