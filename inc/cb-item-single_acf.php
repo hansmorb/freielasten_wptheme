@@ -115,7 +115,7 @@ function create_postgrid_from_posts($items) {
 						$print .= '<div class="card__overlay card__overlay--blue">';
 							$print .= '<div class="card__overlay-content">';
 								$print .= '<a href="'.$item_permalink.'" class="card__title">'.$item_title.'</a>';
-								$print .= '<ul class="card__meta card__meta--last>';
+								$print .= '<ul class="card__meta card__meta--last">';
 									$print .= '<li><a href="'.$item_permalink.'"><i class="fas fa-map-marker"></i>'.$itemLocAddress.'</a></li>';
 								$print .= '</ul>';
 							$print .= '</div><!-- end:card__overlay-content -->';
