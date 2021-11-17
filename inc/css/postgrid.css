@@ -124,6 +124,7 @@
 }
 .card__meta.card__meta--last {
   margin-bottom: 0;
+  --listPad: 0px;
 }
 .card__meta li {
   color: #f8f8f8;
@@ -170,7 +171,7 @@
   max-width: 100%;
 }
 
-.grid a {
+.grid__wrapper .grid a {
   text-decoration: none;
 }
 .grid a:hover {
