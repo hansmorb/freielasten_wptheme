@@ -72,11 +72,10 @@
 .card__title {
   color: white;
   display: inline-block;
-  font-family: "Montserrat";
   font-size: 1.5em;
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 0.75em;
+  margin-bottom: 0.25em;
   text-decoration: none;
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
@@ -106,7 +105,7 @@
 }
 
 .card__overlay--blue {
-  background-image: linear-gradient(to bottom, rgba(41, 182, 246, 0.1), rgba(41, 182, 246, 0.8));
+  background-image: linear-gradient(to bottom, rgba(220, 237, 244, 0.1), rgba(0, 132, 139, 0.57));
   z-index: 2;
 }
 
@@ -157,7 +156,6 @@
 
 .grid body {
   font-size: 1em;
-  font-family: "Lato";
   font-weight: 400;
   line-height: 1.5;
   word-wrap: break-word;
@@ -242,11 +240,10 @@
 .card__title {
   color: white;
   display: inline-block;
-  font-family: "Montserrat";
   font-size: 1.5em;
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 0.75em;
+  margin-bottom: 0.25em;
   text-decoration: none;
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
@@ -283,7 +280,7 @@
 .card__overlay-content {
   position: absolute;
   bottom: 0;
-  padding: 1.5em;
+  padding: 1em;
   z-index: 3;
 }
 
