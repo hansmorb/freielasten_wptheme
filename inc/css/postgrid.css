@@ -47,7 +47,7 @@
   -moz-border-radius: 3px;
   border-radius: 3px;
   display: block;
-  min-height: 240px;
+  min-height: 180px;
   overflow: hidden;
   position: relative;
 }
@@ -215,7 +215,7 @@
   -moz-border-radius: 3px;
   border-radius: 3px;
   display: block;
-  min-height: 240px;
+  min-height: 180px;
   overflow: hidden;
   position: relative;
 }
