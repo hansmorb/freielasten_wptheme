@@ -8,6 +8,7 @@
 })();
 
 jQuery(".card").click(function(e){
-    var nameid = jQuery(e.target)[0].id;
-    window.location.href='/?page_id=' + nameid;
+  var nameid = jQuery(this).attr("id");
+  var url = '/?page_id=' + nameid;
+  window.location.href=url;
 });
