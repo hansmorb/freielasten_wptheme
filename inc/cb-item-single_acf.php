@@ -89,12 +89,11 @@ function cb_acfgallery($gallery_slug = 'galerie'){
 
 /*-------------------------------------------------------------------------------
  * START Create PostGrid from Posts (90% fertig)
- * TODO: Design verbessern
  * -------------------------------------------------------------------------------
  * Funktion erstellt aus einer get_posts Array eine responsive postgrid mithilfe der postgrid.css, Design basierend auf https://codepen.io/drralte/pen/NWxyezz.
  * Returnt $print
  * To-Do:
- * Schöner machen
+ * CB Buchungsliste integrieren
  * -------------------------------------------------------
 */
 
@@ -109,7 +108,7 @@ function create_postgrid_from_posts($items) {
 				$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 				$itemLocAddress = cb_item_locAdress($itemID);
 				$print .= '<div class="grid">';
-					$print .= '<div class="card">';
+					$print .= '<div class="card" id="'.$itemID.'">';
 						$print .= '<div class="card__image">';
 							$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
 							$print .= '<div class="card__overlay card__overlay--blue">';

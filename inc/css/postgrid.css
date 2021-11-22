@@ -312,3 +312,7 @@
 .card__meta li > a {
   color: #f8f8f8;
 }
+
+.card {
+  cursor:pointer;
+}

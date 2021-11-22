@@ -6,3 +6,8 @@
     });
   });
 })();
+
+jQuery(".card").click(function(e){
+    var nameid = jQuery(e.target)[0].id;
+    window.location.href='/?page_id=' + nameid;
+});
