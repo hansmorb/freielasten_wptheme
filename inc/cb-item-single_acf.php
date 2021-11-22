@@ -105,7 +105,11 @@ function cb_acfgallery($gallery_slug = 'galerie'){
  * -------------------------------------------------------
 */
 
-function create_postgrid_from_posts($items) {
+function create_postgrid_from_posts($items,$hideCardMeta=False) {
+	$cardMeta_class = 'card__meta card__meta--last';
+	if ($hideCardMeta){
+		$cardMeta_class = 'card__meta card__meta--last card__hidden';
+	}
 	enqueue_postgrid_styles();
 	if ( $items ) {
 			$print = '<div class="grid__wrapper">';
@@ -115,6 +119,7 @@ function create_postgrid_from_posts($items) {
 				$item_permalink = get_permalink($itemID);
 				$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 				$itemLocAddress = cb_item_locAdress($itemID);
+
 				$print .= '<div class="grid">';
 					$print .= '<div class="card" id="'.$itemID.'">';
 						$print .= '<div class="card__image">';
@@ -122,7 +127,7 @@ function create_postgrid_from_posts($items) {
 							$print .= '<div class="card__overlay card__overlay--blue">';
 								$print .= '<div class="card__overlay-content">';
 									$print .= '<a href="'.$item_permalink.'" class="card__title">'.$item_title.'</a>';
-									$print .= '<ul class="card__meta card__meta--last">';
+									$print .= '<ul class="'.$cardMeta_class.'">';
 										$print .= '<li><a href="'.$item_permalink.'"><i class="fas fa-map-marker"></i>'.$itemLocAddress.'</a></li>';
 										$print .= '<li>' . render_item_availability($itemID) . '</li>';
 									$print .= '</ul>';

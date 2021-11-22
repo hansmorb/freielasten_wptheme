@@ -70,8 +70,10 @@ function get_post_by_category_and_kupplung($cb_category,$kupplungen,$kupplung_me
 /* Return: WP Post object list */
 function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=True,$locationcat_slug=''){
 	$tax = 'cb_items_category';
-	$term = get_term_by('slug', $cb_category, $tax);
-	$termChildren = get_term_children($term->term_id, $tax);
+	if ($cb_category != '') {
+		$term = get_term_by('slug', $cb_category, $tax);
+		$termChildren = get_term_children($term->term_id, $tax);
+	}
 	$bookable_query = '';
 	if ($bookableCheck){
 		$bookable_query = array(
@@ -85,6 +87,7 @@ function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=Tr
 	$bookable_query,
 	);
 	//Generate $tax_queries
+	$tax_query = '';
 	if ($cb_category != ''){
 		$tax_query =
 			array(
@@ -153,10 +156,15 @@ function shortcode_postGridfromCategory($atts){
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
+		'hideDefault' => 'false'
 	),$atts);
+	$atts['hideDefault'] = filter_var( $atts['hideDefault'], FILTER_VALIDATE_BOOLEAN );
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
 	if ($itemList){
-		return create_postgrid_from_posts($itemList);
+		return create_postgrid_from_posts($itemList,$atts['hideDefault']);
+	}
+	else {
+		return "no posts found";
 	}
 }
 
