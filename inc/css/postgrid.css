@@ -98,11 +98,6 @@
   z-index: 1;
 }
 
-.card__overlay--indigo {
-  background-image: linear-gradient(to bottom, rgba(92, 107, 192, 0.1), rgba(92, 107, 192, 0.8));
-  z-index: 2;
-}
-
 .card__overlay--blue {
   background-image: linear-gradient(to bottom, rgba(220, 237, 244, 0.1), rgba(0, 132, 139, 0.57));
   z-index: 2;
@@ -265,10 +260,6 @@
   z-index: 1;
 }
 
-.card__overlay--indigo {
-  background-image: linear-gradient(to bottom, rgba(92, 107, 192, 0.1), rgba(92, 107, 192, 0.8));
-  z-index: 2;
-}
 
 .card__overlay--blue {
   background-image: linear-gradient(to bottom, rgba(220, 237, 244, 0.1), rgba(0, 132, 139, 0.57));
@@ -314,14 +305,14 @@
   cursor:pointer;
 }
 
-/* line 86, ../sass/partials/_map.scss */
+
 .cb-postgrid-item-availability {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
-/* line 95, ../sass/partials/_map.scss */
+
 .cb-postgrid-item-availability-day {
   flex: 0 0 auto;
   color: #000;
@@ -333,21 +324,21 @@
   background-clip: padding-box;
   margin-right: 1px;
 }
-/* line 110, ../sass/partials/_map.scss */
+
 .cb-postgrid-item-availability-day.available {
   background-color: #7fc600;
 }
-/* line 113, ../sass/partials/_map.scss */
+
 .cb-postgrid-item-availability-day.location-closed {
   background-color: #ddd;
   color: #222;
 }
-/* line 117, ../sass/partials/_map.scss */
+
 .cb-postgrid-item-availability-day.no-timeframe {
   background-color: #ddd;
   color: #fff;
 }
-/* line 121, ../sass/partials/_map.scss */
+
 .cb-postgrid-item-availability-day.booked {
   color: #444;
   background: linear-gradient(to top left, #ee7400 0%, #ee7400 calc(50% - 1px), #333 50%, #ee7400 calc(50% + 1px), #ee7400 100%);
