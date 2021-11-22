@@ -68,7 +68,7 @@ function get_post_by_category_and_kupplung($cb_category,$kupplungen,$kupplung_me
 */
 
 /* Return: WP Post object list */
-function get_cb_items_by_category_and_location($cb_category,$bookableCheck=True,$location=''){
+function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=True,$locationcat_slug=''){
 	$tax = 'cb_items_category';
 	$term = get_term_by('slug', $cb_category, $tax);
 	$termChildren = get_term_children($term->term_id, $tax);
@@ -84,28 +84,32 @@ function get_cb_items_by_category_and_location($cb_category,$bookableCheck=True,
 	$meta_queries = array(
 	$bookable_query,
 	);
+	//Generate $tax_queries
+	if ($cb_category != ''){
+		$tax_query =
+			array(
+				'taxonomy' => $tax,
+				'field' => 'slug',
+				'terms' => $cb_category
+			);
+	}
+	$tax_queries = array($tay_query,);
 	// Generate $args array
 	$args = array(
 		'post_type' => 'cb_item',
 		'numberposts' => -1,
 		'order' => 'ASC',
 		'orderby' => 'title',
-		'tax_query' => array(
-    	array(
-     			'taxonomy' => $tax,
-     			'field' => 'slug',
-     			'terms' => $cb_category
-    		)
-		),
+		'tax_query' => $tax_queries,
 		'meta_query' => $meta_queries,
 	);
 	$items_list = get_posts($args);
-  if ($location == ''){ //Wenn nicht nach Location gecheckt werden soll übergibt er die Liste einfach so
+  if ($locationcat_slug == ''){ //Wenn nicht nach Location gecheckt werden soll übergibt er die Liste einfach so
     return $items_list;
   }
   else {
     foreach ($items_list as $key => $item) {
-      if (!cb_item_isItemInLoc($item->ID,$location))
+      if (!cb_item_isItemInLoc($item->ID,$locationcat_slug))
         unset($items_list[$key]);
     }
     return $items_list;
