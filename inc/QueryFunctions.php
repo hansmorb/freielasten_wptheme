@@ -93,7 +93,7 @@ function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=Tr
 				'terms' => $cb_category
 			);
 	}
-	$tax_queries = array($tay_query,);
+	$tax_queries = array($tax_query,);
 	// Generate $args array
 	$args = array(
 		'post_type' => 'cb_item',
