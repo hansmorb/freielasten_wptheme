@@ -107,6 +107,7 @@
   position: absolute;
   bottom: 0;
   z-index: 3;
+  margin-left: 5px;
 }
 
 .card__meta {
@@ -270,6 +271,7 @@
   position: absolute;
   bottom: 0;
   z-index: 3;
+  margin-left: 5px;
 }
 
 .card__meta {
