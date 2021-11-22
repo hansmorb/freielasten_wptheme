@@ -149,4 +149,17 @@ function cb_item_locAdress($cb_item_postID)
 	}
 }
 
+function shortcode_postGridfromCategory($atts){
+	$atts = shortcode_atts( array(
+		'itemcat' => '',
+	  'locationcat' => '',
+	),$atts);
+	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
+	if ($itemList){
+		return create_postgrid_from_posts($itemList);
+	}
+}
+
+add_shortcode( 'cb_postgrid', 'shortcode_postGridfromCategory' );
+
 ?>

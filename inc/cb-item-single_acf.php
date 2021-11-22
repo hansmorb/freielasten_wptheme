@@ -222,7 +222,6 @@ function render_item_availability($cb_item) {
 	return $print;
 }
 
-/*<div class="cb-map-popup-item-availability-day location-closed">22.<br>11.</div><div class="cb-map-popup-item-availability-day available">23.<br>11.</div><div class="cb-map-popup-item-availability-day available">24.<br>11.</div><div class="cb-map-popup-item-availability-day available">25.<br>11.</div><div class="cb-map-popup-item-availability-day available">26.<br>11.</div><div class="cb-map-popup-item-availability-day available">27.<br>11.</div><div class="cb-map-popup-item-availability-day available">28.<br>11.</div><div class="cb-map-popup-item-availability-day available">29.<br>11.</div><div class="cb-map-popup-item-availability-day available">30.<br>11.</div><div class="cb-map-popup-item-availability-day available">01.<br>12.</div><div class="cb-map-popup-item-availability-day available">02.<br>12.</div><div class="cb-map-popup-item-availability-day available">03.<br>12.</div>*/
 /*-------------------------------------------------------------------------------
  * ENDE Create PostGrid from Posts
  * -------------------------------------------------------------------------------
