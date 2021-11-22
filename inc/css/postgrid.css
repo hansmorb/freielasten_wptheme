@@ -116,7 +116,7 @@
   margin-bottom: 0.75em;
 }
 .card__meta.card__meta--last {
-  margin-bottom: 0;
+  margin-bottom: 5px;
   --listPad: 0px;
 }
 .card__meta li {
@@ -280,7 +280,7 @@
   margin-bottom: 0.75em;
 }
 .card__meta.card__meta--last {
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 .card__meta li {
   color: #f8f8f8;
@@ -309,7 +309,7 @@
 
 
 .cb-postgrid-item-availability {
-  display: flex;
+  display: inline-flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -317,18 +317,17 @@
 
 .cb-postgrid-item-availability-day {
   flex: 0 0 auto;
-  color: #000;
-  font-weight: normal;
+  color: #fff;
+  font-weight: bold;
   width: 30px;
   text-align: center;
-  border: 1px solid #fff;
   border-radius: 7px;
   background-clip: padding-box;
-  margin-right: 1px;
+  margin-right: 3px;
 }
 
 .cb-postgrid-item-availability-day.available {
-  background-color: #7fc600;
+  background-color: #79b50d;
 }
 
 .cb-postgrid-item-availability-day.location-closed {
@@ -344,4 +343,12 @@
 .cb-postgrid-item-availability-day.booked {
   color: #444;
   background: linear-gradient(to top left, #ee7400 0%, #ee7400 calc(50% - 1px), #333 50%, #ee7400 calc(50% + 1px), #ee7400 100%);
+}
+/* dirty hack coming up:*/
+.cb-postgrid-availability-days {
+  height: 20px;
+}
+
+.cb-postgrid-availability-month {
+  height: 30px;
 }
