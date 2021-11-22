@@ -8,9 +8,6 @@ use CommonsBooking\Plugin;
 use CommonsBooking\Wordpress\CustomPostType\Item;
 use CommonsBooking\Wordpress\CustomPostType\Location;
 use CommonsBooking\Wordpress\CustomPostType\Timeframe;
-use DateTime;
-use Exception;
-use WP_Post;
 /*-------------------------------------------------------------------------------
  * START Funktionen zum Stylesheet einreihen
  * -------------------------------------------------------------------------------
