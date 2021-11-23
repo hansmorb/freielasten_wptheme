@@ -159,9 +159,10 @@ function shortcode_postGridfromCategory($atts){
 		'hideDefault' => 'false'
 	),$atts);
 	$atts['hideDefault'] = filter_var( $atts['hideDefault'], FILTER_VALIDATE_BOOLEAN );
+	echo $atts['hideDefault'];
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
 	if ($itemList){
-		return create_postgrid_from_posts($itemList,$atts['hideDefault']);
+		return create_postgrid_from_posts($itemList,True); //Hide Default not working, that's why its to always true
 	}
 	else {
 		return "no posts found";
