@@ -99,7 +99,7 @@
 }
 
 .card__overlay--blue {
-  background-image: linear-gradient(to bottom, rgba(220, 237, 244, 0.1), rgba(0, 132, 139, 0.57));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 132, 139, 0.57));
   z-index: 2;
 }
 
@@ -263,7 +263,7 @@
 
 
 .card__overlay--blue {
-  background-image: linear-gradient(to bottom, rgba(220, 237, 244, 0.1), rgba(0, 132, 139, 0.57));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 132, 139, 0.57));
   z-index: 2;
 }
 
