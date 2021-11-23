@@ -1,5 +1,13 @@
 <?php
 
+use CommonsBooking\CB\CB;
+use CommonsBooking\Model\CustomPost;
+use CommonsBooking\Model\Day;
+use CommonsBooking\Model\Week;
+use CommonsBooking\Plugin;
+use CommonsBooking\Wordpress\CustomPostType\Item;
+use CommonsBooking\Wordpress\CustomPostType\Location;
+use CommonsBooking\Wordpress\CustomPostType\Timeframe;
 /*-------------------------------------------------------------------------------
  * START Funktionen zum Stylesheet einreihen
  * -------------------------------------------------------------------------------
@@ -97,7 +105,11 @@ function cb_acfgallery($gallery_slug = 'galerie'){
  * -------------------------------------------------------
 */
 
-function create_postgrid_from_posts($items) {
+function create_postgrid_from_posts($items,$hideCardMeta=False) {
+	$cardMeta_class = 'card__meta card__meta--last';
+	if ($hideCardMeta){
+		$cardMeta_class = 'card__meta card__meta--last card__hidden';
+	}
 	enqueue_postgrid_styles();
 	if ( $items ) {
 			$print = '<div class="grid__wrapper">';
@@ -107,6 +119,7 @@ function create_postgrid_from_posts($items) {
 				$item_permalink = get_permalink($itemID);
 				$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 				$itemLocAddress = cb_item_locAdress($itemID);
+
 				$print .= '<div class="grid">';
 					$print .= '<div class="card" id="'.$itemID.'">';
 						$print .= '<div class="card__image">';
@@ -114,8 +127,9 @@ function create_postgrid_from_posts($items) {
 							$print .= '<div class="card__overlay card__overlay--blue">';
 								$print .= '<div class="card__overlay-content">';
 									$print .= '<a href="'.$item_permalink.'" class="card__title">'.$item_title.'</a>';
-									$print .= '<ul class="card__meta card__meta--last">';
+									$print .= '<ul class="'.$cardMeta_class.'">';
 										$print .= '<li><a href="'.$item_permalink.'"><i class="fas fa-map-marker"></i>'.$itemLocAddress.'</a></li>';
+										$print .= '<li>' . render_item_availability($itemID) . '</li>';
 									$print .= '</ul>';
 								$print .= '</div><!-- end:card__overlay-content -->';
 							$print .= '</div><!-- end:card__image -->';
@@ -130,6 +144,87 @@ function create_postgrid_from_posts($items) {
 			return False;
 		}
 
+}
+
+function render_item_availability($cb_item) {
+	$print = '<div class="cb-postgrid-item-availability">';
+	if (!is_object($cb_item)) {
+		$cb_item = get_post($cb_item);
+	}
+	$cb_item_id = $cb_item->ID;
+	$locationId = \CommonsBooking\Repository\Location::getByItem( $cb_item_id, true )[0];
+	$days = 7; //Die Anzahl der Tage die im vorraus angezeigt werden soll
+	$date  = new DateTime();
+	$today = $date->format( "Y-m-d" );
+	$days_display = array_fill( 0, $days, 'n' );
+  $days_cols    = array_fill( 0, $days, '<col>' );
+	$month        = date( "m" );
+	$month_cols   = 0;
+	$colspan      = $days;
+	for ( $i = 0; $i < $days; $i ++ ) {
+			$month_cols ++;
+			$days_display[ $i ] = $date->format( 'd' );
+			$days_dates[ $i ]   = $date->format( 'Y-m-d' );
+			$days_weekday[ $i ] = $date->format( 'N' );
+			$daysDM[ $i ]       = $date->format( 'j.n.' );
+			if ( $date->format( 'N' ) >= 7 ) {
+				$days_cols[ $i ] = '<col class="bg_we">';
+			}
+			$date->modify( '+1 day' );
+			if ( $date->format( 'm' ) != $month ) {
+				$colspan    = $month_cols;
+				$month_cols = 0;
+				$month      = $date->format( 'm' );
+			}
+	}
+	$last_day = $days_dates[ $days - 1 ];
+					// Get data for current item/location combination
+					$calendarData = \CommonsBooking\View\Calendar::getCalendarDataArray(
+						$cb_item_id,
+						$locationId,
+						$today,
+						$last_day
+					);
+
+					$gotStartDate = false;
+					$gotEndDate   = false;
+					$dayIterator  = 0;
+					foreach ( $calendarData['days'] as $day => $data ) {
+
+						// Skip additonal days
+						if ( ! $gotStartDate && $day !== $today ) {
+							continue;
+						} else {
+							$gotStartDate = true;
+						}
+
+						if ( $gotEndDate ) {
+							continue;
+						}
+
+						if ( $day == $last_day ) {
+							$gotEndDate = true;
+						}
+						$day_days = date("d", strtotime($day));
+						$day_month = date("m", strtotime($day));
+						// Check day state
+						if ( ! count( $data['slots'] ) ) {
+							$print .= '<div class="cb-postgrid-item-availability-day no-timeframe">';
+						} elseif ( $data['holiday'] ) {
+							$print .= '<div class="cb-postgrid-item-availability-day location-closed">';
+						} elseif ( $data['locked'] ) {
+							if ( $data['firstSlotBooked'] && $data['lastSlotBooked'] ) {
+								$print .= '<div class="cb-postgrid-item-availability-day booked">';
+						} elseif ( $data['partiallyBookedDay'] ) {
+								$print .= '<div class="cb-postgrid-item-availability-day available">';
+						}
+						} else {
+							$print .= '<div class="cb-postgrid-item-availability-day available">';
+						}
+						$print.= '<div class="cb-postgrid-availability-days">' . $day_days .'.</div>' . '<div class="cb-postgrid-availability-month">' .$day_month.'.</div></div>';
+					}
+	$print .= '</div>'; /*END class="cb-postgrid-item-availability"*/
+	return $print;
 }
 
 /*-------------------------------------------------------------------------------
