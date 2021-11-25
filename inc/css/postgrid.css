@@ -353,6 +353,12 @@
   color: #444;
   background: linear-gradient(to top left, #ee7400 0%, #ee7400 calc(50% - 1px), #333 50%, #ee7400 calc(50% + 1px), #ee7400 100%);
 }
+
+.cb-postgrid-item-availability-day.partially-booked {
+  color: #444;
+  background: linear-gradient(to top left, #7fc600 0%, #7fc600 calc(50% - 1px), #333 50%, #ee7400 calc(50% + 1px), #ee7400 100%);
+}
+
 /* dirty hack coming up:*/
 .cb-postgrid-availability-days {
   height: 20px;

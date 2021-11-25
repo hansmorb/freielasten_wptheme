@@ -216,7 +216,7 @@ function render_item_availability($cb_item) {
 							if ( $data['firstSlotBooked'] && $data['lastSlotBooked'] ) {
 								$print .= '<div class="cb-postgrid-item-availability-day booked">';
 						} elseif ( $data['partiallyBookedDay'] ) {
-								$print .= '<div class="cb-postgrid-item-availability-day available">';
+								$print .= '<div class="cb-postgrid-item-availability-day partially-booked">';
 						}
 						} else {
 							$print .= '<div class="cb-postgrid-item-availability-day available">';
