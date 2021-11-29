@@ -110,9 +110,43 @@ function acf_populate_menu($items, $args){
 	// return
 	return $items;
 
-}
+	}
 }
 
 add_filter('wp_nav_menu_items', 'acf_populate_menu', 10, 2);
+
+
+function menuobject_coloredicons( $items, $args ) {
+
+	// loop
+	foreach( $items as &$item ) {
+
+		// vars
+		$icon = get_field('icon-menu_obj', $item);
+		$color = get_field('color-menu_obj',$item);
+
+		//debug
+
+		echo "<pre>";
+		print_r($item);
+		echo "</pre>";
+
+		// append icon
+		if( $icon ) {
+			
+			$item->title .= ' <i class="fa fa-'.$icon.'"></i>';
+
+		}
+
+	}
+
+
+	// return
+	return $items;
+
+}
+
+add_filter('wp_nav_menu_objects', 'menuobject_coloredicons', 10, 2);
+
 
 ?>
