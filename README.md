@@ -8,7 +8,11 @@ Funktionen:
 
    -Automatische Post Grids die im Kontext der Artikel dazu kompatible Artikel anzeigen
 
+   -Automatische Post Grids für Location Seiten mit Kategorien
+
    -Zusätzlicher Menüpunkt der dynamisch nach der Taxonomie der Artikel und Standorte Menüpunkte auffüllen kann
+
+   -Menüpunkte können mit Color Picker und Icons verschönert werden
 
    -Einige kleinere UM Anpassungen
 
