@@ -129,7 +129,7 @@ function menuobject_icons( $items, $args ) {
 		// prepend icon
 		if( $icon ) {
 
-			$item->title = '<i class="fa fa-'.$icon.'"></i>' . $item->title;
+			$item->title = ' <i class="fa fa-'.$icon.'"></i>' . $item->title;
 
 		}
 
@@ -147,6 +147,13 @@ function color_menu_items($items) {
     preg_match_all('/menu-item-([0-9]{1,10})"/ ', $items, $matches);
 
     if (isset($matches[0]) && isset($matches[1])) {
+				//debug
+
+				echo "<pre>";
+				print_r($matches);
+				echo "</pre>";
+
+				
         foreach ($matches[0] as $k => $repl) {
             $post_id = $matches[1][$k];
 						if($bg = get_field('color-menu_obj', $post_id))
