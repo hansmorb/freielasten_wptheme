@@ -3,9 +3,6 @@
 /* Sorry für den unsauberen Coden: Beschwerden an mein Assistenten! (Der sie für mich verbrennt).
  * Funktionen: ACF_populate_menu (100% done)
  * 		Erstellt aus den ACF Feldern im "Menü" ein passendes Hauptmenü (der Ausleihen Menüpunkt)
-*  get_icon_for_cb_item (100%done)
-* 		Gibt das Icon für eine CB Post ID zurück
-*       Wird auch von taxonomy-cb_locations_category.php verwendet um Postliste per Location zu erstellen.
  */
 
 /* Input: Post Liste, Farbe des Menüs
@@ -14,7 +11,7 @@
 
 // Returnt eingebundene und eingefärbte SVG
 function returnsvg_html($svg_url,$svg_color){
-	return '<div style="display:flex; margin-right:10px;"><svg class="menuicon" data-src='.$svg_url.' fill="'.$svg_color.'" width="2.50em"></svg></div>';
+	return '<div style="display:flex;"><svg class="menuicon" data-src='.$svg_url.' fill="'.$svg_color.'"></svg></div>';
 }
 /* RETURN: Array mit Term und Icon, dadrunter die Items als Post Object*/
 
@@ -104,15 +101,89 @@ function acf_populate_menu($items, $args){
 			$parentItem_html .= '</ul>';	//Gesamten Ausleihen Unterpunkt schließen
 			$parentItem_html .= '</li>' ; //Schließt Listenpunkt vom parent Item
 			$parentItem_css = '<style> .menu_ausleihen a{color:'.$setting_menucolor.'!important;}.menu_ausleihen a::after{ background-color: '.$setting_menucolor.'!important; }</style>'; //Fügt einfach so ultra random den Style Ende an und macht sich auch noch selber super important, ähnlich wie der Sack der das geschrieben hat, you are welcome!
+			//change color of menu items
+			$menu_css = color_menu_items($items);
 			// append html
-			$items = $parentItem_html . $parentItem_css .$items; //HTML Elemente zusammenführen -> wird returnt
+			$items = $parentItem_html . $parentItem_css .$items . $menu_css; //HTML Elemente zusammenführen -> wird returnt
 		} //endif have_rows kategorien fuer ausleihe
 	// return
 	return $items;
 
-}
+	}
 }
 
 add_filter('wp_nav_menu_items', 'acf_populate_menu', 10, 2);
+
+
+function menuobject_icons( $items, $args ) {
+
+	// loop
+	foreach( $items as &$item ) {
+
+		// vars
+		$icon = get_field('icon-menu_obj', $item);
+
+		// prepend icon
+		if( $icon ) {
+
+			$item->title = ' <i class="fa fa-'.$icon.' menuicon"></i>' . $item->title;
+
+		}
+
+	}
+
+
+	// return
+	return $items;
+
+}
+
+add_filter('wp_nav_menu_objects', 'menuobject_icons', 10, 2);
+
+function color_menu_items($items) {
+    preg_match_all('/menu-item-([0-9]{1,10})/ ', $items, $matches);
+		$st = '';
+    if (isset($matches[0]) && isset($matches[1])) {
+				$st = '<style type="text/css">';
+        foreach ($matches[0] as $k => $repl) {
+            $post_id = $matches[1][$k];
+						if($text_color = get_field('color-menu_obj', $post_id)){
+                $st .= '#nv-primary-navigation-main li.' . $repl . ' a { color:' . $text_color . ';}';
+								$st .= '#nv-primary-navigation-main li.' . $repl . ' a::after { background-color:' . $text_color . ';}';
+        		}
+    		}
+				$st .= '#nv-primary-navigation-main .menuicon {
+								max-height: 50%;
+  							width: 50px;
+  							margin: 5px;
+								}';
+				$st .= '</style>';
+		}
+    return $st;
+}
+
+//changes default used ACF Palettes to freielasten palette
+
+function set_acf_color_picker_default_palettes() {
+?>
+<script>
+let setDefaultPalette = function() {
+    acf.add_filter('color_picker_args', function( args, $field ){
+
+        // Find the field key
+        let targetFieldKey = $field[0]['dataset']['key'];
+
+        args.palettes = [ '#3155a1', '#801622', '#00848b', '#009fe3', '#ffcb1d' ];
+
+        // Return
+        return args;
+    });
+}
+setDefaultPalette();
+</script>
+<?php
+}
+add_action('acf/input/admin_footer', 'set_acf_color_picker_default_palettes');
+
 
 ?>
