@@ -11,7 +11,7 @@
 
 // Returnt eingebundene und eingefärbte SVG
 function returnsvg_html($svg_url,$svg_color){
-	return '<div style="display:flex; margin-right:10px;"><svg class="menuicon" data-src='.$svg_url.' fill="'.$svg_color.'" width="2.50em"></svg></div>';
+	return '<div style="display:flex;"><svg class="menuicon" data-src='.$svg_url.' fill="'.$svg_color.'"></svg></div>';
 }
 /* RETURN: Array mit Term und Icon, dadrunter die Items als Post Object*/
 
