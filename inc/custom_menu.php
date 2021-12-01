@@ -144,15 +144,14 @@ function menuobject_icons( $items, $args ) {
 add_filter('wp_nav_menu_objects', 'menuobject_icons', 10, 2);
 
 function color_menu_items($items) {
-		echo "func run";
-    preg_match_all('/menu-item-([0-9]{1,10})"/ ', $items, $matches);
+    preg_match_all('/menu-item-([0-9]{1,10})/ ', $items, $matches);
 		$st = '';
     if (isset($matches[0]) && isset($matches[1])) {
 				$st = '<style type="text/css">';
         foreach ($matches[0] as $k => $repl) {
             $post_id = $matches[1][$k];
 						if($text_color = get_field('color-menu_obj', $post_id)){
-                $st .= $repl . '> a { color:' . $text_color . '!important;}';
+                $st .= '.' . $repl . ' > a { color:' . $text_color . '!important;}';
         		}
     		}
 				$st .= '</style>';
