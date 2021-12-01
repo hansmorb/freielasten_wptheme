@@ -152,6 +152,11 @@ function color_menu_items($items) {
 								$st .= '#nv-primary-navigation-main li.' . $repl . ' a::after { background-color:' . $text_color . ';}';
         		}
     		}
+				$st .= '#nv-primary-navigation-main .menuicon {
+								max-height: 50%;
+  							width: 50px;
+  							margin: 5px;
+								}';
 				$st .= '</style>';
 		}
     return $st;
