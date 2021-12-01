@@ -116,14 +116,13 @@ function acf_populate_menu($items, $args){
 add_filter('wp_nav_menu_items', 'acf_populate_menu', 10, 2);
 
 
-function menuobject_coloredicons( $items, $args ) {
+function menuobject_icons( $items, $args ) {
 
 	// loop
 	foreach( $items as &$item ) {
 
 		// vars
 		$icon = get_field('icon-menu_obj', $item);
-		$color = get_field('color-menu_obj',$item);
 
 		//debug
 
@@ -131,10 +130,10 @@ function menuobject_coloredicons( $items, $args ) {
 		print_r($item);
 		echo "</pre>";
 
-		// append icon
+		// prepend icon
 		if( $icon ) {
-			
-			$item->title .= ' <i class="fa fa-'.$icon.'"></i>';
+
+			$item->title = $item->title .  ' <i class="fa fa-'.$icon.'"></i>';
 
 		}
 
