@@ -135,7 +135,7 @@ function menuobject_icons( $items, $args ) {
 		// prepend icon
 		if( $icon ) {
 
-			$item->title = $item->title .  ' <i class="fa fa-'.$icon.'"></i>';
+			$item->title = '<i class="fa fa-'.$icon.'"></i>' . $item->title;
 
 		}
 
