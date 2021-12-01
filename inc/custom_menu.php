@@ -144,6 +144,7 @@ function menuobject_icons( $items, $args ) {
 add_filter('wp_nav_menu_objects', 'menuobject_icons', 10, 2);
 
 function color_menu_items($items) {
+		echo "func run";
     preg_match_all('/menu-item-([0-9]{1,10})"/ ', $items, $matches);
 		$st = '';
     if (isset($matches[0]) && isset($matches[1])) {
