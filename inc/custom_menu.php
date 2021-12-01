@@ -3,9 +3,6 @@
 /* Sorry für den unsauberen Coden: Beschwerden an mein Assistenten! (Der sie für mich verbrennt).
  * Funktionen: ACF_populate_menu (100% done)
  * 		Erstellt aus den ACF Feldern im "Menü" ein passendes Hauptmenü (der Ausleihen Menüpunkt)
-*  get_icon_for_cb_item (100%done)
-* 		Gibt das Icon für eine CB Post ID zurück
-*       Wird auch von taxonomy-cb_locations_category.php verwendet um Postliste per Location zu erstellen.
  */
 
 /* Input: Post Liste, Farbe des Menüs
@@ -159,6 +156,29 @@ function color_menu_items($items) {
 		}
     return $st;
 }
+
+//changes default used ACF Palettes to freielasten palette
+
+function set_acf_color_picker_default_palettes() {
+?>
+<script>
+let setDefaultPalette = function() {
+    acf.add_filter('color_picker_args', function( args, $field ){
+
+        // Find the field key
+        let targetFieldKey = $field[0]['dataset']['key'];
+
+        args.palettes = [ '#3155a1', '#801622', '#00848b', '#009fe3', '#ffcb1d' ];
+
+        // Return
+        return args;
+    });
+}
+setDefaultPalette();
+</script>
+<?php
+}
+add_action('acf/input/admin_footer', 'set_acf_color_picker_default_palettes');
 
 
 ?>
