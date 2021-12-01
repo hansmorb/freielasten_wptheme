@@ -151,7 +151,8 @@ function color_menu_items($items) {
         foreach ($matches[0] as $k => $repl) {
             $post_id = $matches[1][$k];
 						if($text_color = get_field('color-menu_obj', $post_id)){
-                $st .= '.' . $repl . ' > a { color:' . $text_color . '!important;}';
+                $st .= '#nv-primary-navigation-main li.' . $repl . ' a { color:' . $text_color . ';}';
+								$st .= '#nv-primary-navigation-main li.' . $repl . ' a::after { background-color:' . $text_color . ';}';
         		}
     		}
 				$st .= '</style>';
