@@ -154,8 +154,8 @@ function color_menu_items($items) {
 						if($text_color = get_field('color-menu_obj', $post_id)){
                 $st .= $repl . '> a { color:' . $text_color . '!important;}';
         		}
-				$st .= '</style>';
     		}
+				$st .= '</style>';
 		}
     return $st;
 }
