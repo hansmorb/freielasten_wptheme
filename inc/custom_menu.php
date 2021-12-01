@@ -105,9 +105,9 @@ function acf_populate_menu($items, $args){
 			$parentItem_html .= '</li>' ; //Schließt Listenpunkt vom parent Item
 			$parentItem_css = '<style> .menu_ausleihen a{color:'.$setting_menucolor.'!important;}.menu_ausleihen a::after{ background-color: '.$setting_menucolor.'!important; }</style>'; //Fügt einfach so ultra random den Style Ende an und macht sich auch noch selber super important, ähnlich wie der Sack der das geschrieben hat, you are welcome!
 			//change color of menu items
-			$items = color_menu_items($items);
+			$menu_css = color_menu_items($items);
 			// append html
-			$items = $parentItem_html . $parentItem_css .$items; //HTML Elemente zusammenführen -> wird returnt
+			$items = $parentItem_html . $parentItem_css .$items . $menu_css; //HTML Elemente zusammenführen -> wird returnt
 		} //endif have_rows kategorien fuer ausleihe
 	// return
 	return $items;
@@ -145,27 +145,18 @@ add_filter('wp_nav_menu_objects', 'menuobject_icons', 10, 2);
 
 function color_menu_items($items) {
     preg_match_all('/menu-item-([0-9]{1,10})"/ ', $items, $matches);
-
+		$st = '';
     if (isset($matches[0]) && isset($matches[1])) {
-				//debug
-
-				echo "<pre>";
-				print_r($matches);
-				echo "</pre>";
-
-				
+				$st = '<style type="text/css">';
         foreach ($matches[0] as $k => $repl) {
             $post_id = $matches[1][$k];
-						if($bg = get_field('color-menu_obj', $post_id))
-                $st = "style='color: $bg' ";
-            else
-                $st = "";
-
-            $items = str_replace($repl, "$repl $st ", $items);
-        }
-    }
-
-    return $items;
+						if($text_color = get_field('color-menu_obj', $post_id)){
+                $st .= $repl . '> a { color:' . $text_color . '!important;}';
+        		}
+				$st .= '</style>';
+    		}
+		}
+    return $st;
 }
 
 
