@@ -126,12 +126,6 @@ function menuobject_icons( $items, $args ) {
 		// vars
 		$icon = get_field('icon-menu_obj', $item);
 
-		//debug
-
-		echo "<pre>";
-		print_r($item);
-		echo "</pre>";
-
 		// prepend icon
 		if( $icon ) {
 
