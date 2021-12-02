@@ -148,11 +148,11 @@ function color_menu_items($items) {
         foreach ($matches[0] as $k => $repl) {
             $post_id = $matches[1][$k];
 						if($text_color = get_field('color-menu_obj', $post_id)){
-                $st .= '#nv-primary-navigation-main li.' . $repl . ' a { color:' . $text_color . ';}';
-								$st .= '#nv-primary-navigation-main li.' . $repl . ' a::after { background-color:' . $text_color . ';}';
+                $st .= '#nv-primary-navigation-top li.' . $repl . ' a { color:' . $text_color . ';}';
+								$st .= '#nv-primary-navigation-top li.' . $repl . ' a::after { background-color:' . $text_color . ';}';
         		}
     		}
-				$st .= '#nv-primary-navigation-main .menuicon {
+				$st .= '#nv-primary-navigation-top .menuicon {
 								max-height: 50%;
   							width: 50px;
   							margin: 5px;
