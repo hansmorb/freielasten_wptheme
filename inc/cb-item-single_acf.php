@@ -96,6 +96,53 @@ function cb_acfgallery($gallery_slug = 'galerie'){
 */
 
 /*-------------------------------------------------------------------------------
+ * START Create ItemGallery (0% fertig)
+ * -------------------------------------------------------------------------------
+ * Funktion erstellt aus einer get_posts Array eine responsive gallery
+ * mit Standort und Verfügbarkeit
+ * -------------------------------------------------------
+*/
+
+function cb_itemGallery($items,$hideCardMeta=False){
+	enqueue_gallery_styles();
+	$images = get_field($gallery_slug);
+	$thumbnail_url = esc_url(get_the_post_thumbnail_url());
+	$thumbnail_alt = esc_attr(get_post_meta(get_post_thumbnail_id(), "_wp_attachment_image_alt", true ));
+	$print = '<div class="slideshow-container">';
+	$print .= '<div class="itemgallery fade">'; # Fügt nochmal ein Extra div vor den anderen für das Thumbnail als erstes Foto ein!
+	$print.= '<img src="' . $thumbnail_url . '" alt="' . $thumbnail_alt . '" style="width:100%" />';
+	$print .= '</div>';
+	if( $images ): //Wenn es mehr als das Artikelbild gibt
+		foreach( $images as $image ):
+			$galleryimage_url = esc_url($image['url']);
+			$galleryimage_alt = esc_attr($image['alt']);
+			$galleryimage_caption = esc_html($image['caption']);
+			$print .= '<div class="itemgallery fade">';
+			$print .= '<img src="' . $galleryimage_url . '" alt="' . $galleryimage_alt . '" style="width:100%" />';
+			//$print .= '<div class="text">' . $galleryimage_caption . '</div>';
+			$print .= '</div>'; //itemgallery fade
+		endforeach;
+		$print .= '<a class="prev" onclick="plusSlides(-1)">&#10094;</a>';
+		$print .= '<a class="next" onclick="plusSlides(1)">&#10095;</a>';
+		$print .= '</div>';
+		$print .= '<div style="text-align:center">';
+			for($i = 1; $i < count($images) + 2; $i++): #Erstellt die Anzahl der dots (Galerie) +2 count weil wir ja noch das extra div von dem Thumbnail haben
+				$print .= '<span class="dot" onclick="currentSlide(' . $i . ')"></span>';
+			endfor;
+	endif;
+	$print .= '</div>'; //slideshow-container
+	return $print;
+}
+
+/*-------------------------------------------------------------------------------
+ * ENDE Create ItemGallery
+ * -------------------------------------------------------------------------------
+ * Funktion erstellt aus einer get_posts Array eine responsive gallery
+ * mit Standort und Verfügbarkeit
+ * -------------------------------------------------------
+*/
+
+/*-------------------------------------------------------------------------------
  * START Create PostGrid from Posts (90% fertig)
  * -------------------------------------------------------------------------------
  * Funktion erstellt aus einer get_posts Array eine responsive postgrid mithilfe der postgrid.css, Design basierend auf https://codepen.io/drralte/pen/NWxyezz.
@@ -105,7 +152,7 @@ function cb_acfgallery($gallery_slug = 'galerie'){
  * -------------------------------------------------------
 */
 
-function create_postgrid_from_posts($items,$hideCardMeta=False) {
+function create_postgrid_from_posts($items,$hideCardMeta=True) {
 	$cardMeta_class = 'card__meta card__meta--last';
 	if ($hideCardMeta){
 		$cardMeta_class = 'card__meta card__meta--last card__hidden';
