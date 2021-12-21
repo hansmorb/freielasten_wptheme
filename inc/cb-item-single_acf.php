@@ -120,7 +120,6 @@ function cb_itemGallery($items,$hideCardMeta=False){
 			$itemLocAddress = cb_item_locAdress($itemID);
 
 			$print .= '<div class="itemgallery fade">';
-			$print .= '<div class="grid">';
 				$print .= '<div class="card" id="'.$itemID.'">';
 					$print .= '<div class="card__image">';
 						$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
@@ -135,7 +134,6 @@ function cb_itemGallery($items,$hideCardMeta=False){
 						$print .= '</div><!-- end:card__image -->';
 					$print .= '</div><!-- end:card__overlay -->';
 				$print .= '</div><!-- end:card -->';
-			$print .= '</div><!-- end:grid -->';
 			//$print .= '<div class="text">' . $galleryimage_caption . '</div>';
 			$print .= '</div>'; //itemgallery fade
 		endforeach;
