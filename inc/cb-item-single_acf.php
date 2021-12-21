@@ -105,20 +105,37 @@ function cb_acfgallery($gallery_slug = 'galerie'){
 
 function cb_itemGallery($items,$hideCardMeta=False){
 	enqueue_gallery_styles();
-	$images = get_field($gallery_slug);
-	$thumbnail_url = esc_url(get_the_post_thumbnail_url());
-	$thumbnail_alt = esc_attr(get_post_meta(get_post_thumbnail_id(), "_wp_attachment_image_alt", true ));
-	$print = '<div class="slideshow-container">';
-	$print .= '<div class="itemgallery fade">'; # Fügt nochmal ein Extra div vor den anderen für das Thumbnail als erstes Foto ein!
-	$print.= '<img src="' . $thumbnail_url . '" alt="' . $thumbnail_alt . '" style="width:100%" />';
-	$print .= '</div>';
-	if( $images ): //Wenn es mehr als das Artikelbild gibt
-		foreach( $images as $image ):
-			$galleryimage_url = esc_url($image['url']);
-			$galleryimage_alt = esc_attr($image['alt']);
-			$galleryimage_caption = esc_html($image['caption']);
+	enqueue_postgrid_styles();
+	$cardMeta_class = 'card__meta card__meta--last';
+	if ($hideCardMeta){
+		$cardMeta_class = 'card__meta card__meta--last card__hidden';
+	}
+	if( $items ):
+		$print = '<div class="slideshow-container">';
+		foreach( $items as $item ):
+			$itemID = $item->ID;
+			$item_title = $item->post_title;
+			$item_permalink = get_permalink($itemID);
+			$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
+			$itemLocAddress = cb_item_locAdress($itemID);
+
 			$print .= '<div class="itemgallery fade">';
-			$print .= '<img src="' . $galleryimage_url . '" alt="' . $galleryimage_alt . '" style="width:100%" />';
+			$print .= '<div class="grid">';
+				$print .= '<div class="card" id="'.$itemID.'">';
+					$print .= '<div class="card__image">';
+						$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
+						$print .= '<div class="card__overlay card__overlay--blue">';
+							$print .= '<div class="card__overlay-content">';
+								$print .= '<a href="'.$item_permalink.'" class="card__title">'.$item_title.'</a>';
+								$print .= '<ul class="'.$cardMeta_class.'">';
+									$print .= '<li><a href="'.$item_permalink.'"><i class="fas fa-map-marker"></i>'.$itemLocAddress.'</a></li>';
+									$print .= '<li>' . render_item_availability($itemID) . '</li>';
+								$print .= '</ul>';
+							$print .= '</div><!-- end:card__overlay-content -->';
+						$print .= '</div><!-- end:card__image -->';
+					$print .= '</div><!-- end:card__overlay -->';
+				$print .= '</div><!-- end:card -->';
+			$print .= '</div><!-- end:grid -->';
 			//$print .= '<div class="text">' . $galleryimage_caption . '</div>';
 			$print .= '</div>'; //itemgallery fade
 		endforeach;
@@ -126,7 +143,7 @@ function cb_itemGallery($items,$hideCardMeta=False){
 		$print .= '<a class="next" onclick="plusSlides(1)">&#10095;</a>';
 		$print .= '</div>';
 		$print .= '<div style="text-align:center">';
-			for($i = 1; $i < count($images) + 2; $i++): #Erstellt die Anzahl der dots (Galerie) +2 count weil wir ja noch das extra div von dem Thumbnail haben
+			for($i = 1; $i < count($items) + 1; $i++):
 				$print .= '<span class="dot" onclick="currentSlide(' . $i . ')"></span>';
 			endfor;
 	endif;
