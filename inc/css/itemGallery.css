@@ -151,7 +151,7 @@
 .card__image {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  border-radius: 3px;
+  border-radius: 10px;
   display: block;
   min-height: 180px;
   overflow: hidden;
@@ -206,8 +206,7 @@
 }
 
 .card__overlay--blue {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 132, 139, 0.57));
-  z-index: 2;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 132, 139, 0.32));  z-index: 2;
 }
 
 .card__overlay-content {
@@ -272,6 +271,9 @@
 
 .grid__wrapper .grid a {
   text-decoration: none;
+}
+.grid a:hover {
+  text-decoration: underline;
 }
 
 .grid__wrapper {
@@ -367,8 +369,7 @@
 
 
 .card__overlay--blue {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 132, 139, 0.57));
-  z-index: 2;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 132, 139, 0.32));  z-index: 2;
 }
 
 .card__overlay-content {
@@ -470,4 +471,8 @@
 
 .cb-postgrid-availability-month {
   height: 30px;
+}
+
+.card__overlay.card__overlay--blue:hover {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 132, 139, 0.78));
 }
