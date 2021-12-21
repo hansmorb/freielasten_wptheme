@@ -35,6 +35,10 @@ function enqueue_postgrid_styles(){
 	wp_enqueue_script('postgrid-js', get_stylesheet_directory_uri() . '/inc/js/postGrid.js', array('jquery','imagesloaded','masonry'));
 }
 
+ function enqueue_itemGallery_styles(){
+	 wp_register_style('itemgallery-css', get_stylesheet_directory_uri() . '/inc/css/itemGallery.css', __FILE__);
+ }
+
 /*-------------------------------------------------------------------------------
  * ENDE Funktionen zum Stylesheet einreihen
  * -------------------------------------------------------------------------------
@@ -104,8 +108,7 @@ function cb_acfgallery($gallery_slug = 'galerie'){
 */
 
 function cb_itemGallery($items,$hideCardMeta=True){
-	enqueue_gallery_styles();
-	enqueue_postgrid_styles();
+	enqueue_itemGallery_styles();
 	$cardMeta_class = 'card__meta card__meta--last';
 	if ($hideCardMeta){
 		$cardMeta_class = 'card__meta card__meta--last card__hidden';
@@ -119,7 +122,7 @@ function cb_itemGallery($items,$hideCardMeta=True){
 			$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 			$itemLocAddress = cb_item_locAdress($itemID);
 
-			$print .= '<div class="itemgallery fade" style="border-radius:15px;">';
+			$print .= '<div class="itemgallery fade">';
 				$print .= '<div class="card" id="'.$itemID.'">';
 					$print .= '<div class="card__image">';
 						$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
