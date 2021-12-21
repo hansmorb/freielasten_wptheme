@@ -103,7 +103,7 @@ function cb_acfgallery($gallery_slug = 'galerie'){
  * -------------------------------------------------------
 */
 
-function cb_itemGallery($items,$hideCardMeta=False){
+function cb_itemGallery($items,$hideCardMeta=True){
 	enqueue_gallery_styles();
 	enqueue_postgrid_styles();
 	$cardMeta_class = 'card__meta card__meta--last';
