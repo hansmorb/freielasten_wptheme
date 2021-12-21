@@ -1,4 +1,13 @@
 <?php
+use CommonsBooking\CB\CB;
+use CommonsBooking\Model\CustomPost;
+use CommonsBooking\Model\Day;
+use CommonsBooking\Model\Week;
+use CommonsBooking\Plugin;
+use CommonsBooking\Wordpress\CustomPostType\Item;
+use CommonsBooking\Wordpress\CustomPostType\Location;
+use CommonsBooking\Wordpress\CustomPostType\Timeframe;
+
 
 /* ---------------------------------------------------------------------------------
  * START Get Post by Category + Kupplung (100%fertig)
@@ -150,6 +159,47 @@ function cb_item_locAdress($cb_item_postID)
 	else {
 		return false;
 	}
+}
+
+function itemGetCalendarData($cb_item){
+	if (!is_object($cb_item)) {
+		$cb_item = get_post($cb_item);
+	}
+	$cb_item_id = $cb_item->ID;
+	$locationId = \CommonsBooking\Repository\Location::getByItem( $cb_item_id, true )[0];
+	$days = 7; //Die Anzahl der Tage die im vorraus angezeigt werden soll
+	$date  = new DateTime();
+	$today = $date->format( "Y-m-d" );
+	$days_display = array_fill( 0, $days, 'n' );
+	$days_cols    = array_fill( 0, $days, '<col>' );
+	$month        = date( "m" );
+	$month_cols   = 0;
+	$colspan      = $days;
+	for ( $i = 0; $i < $days; $i ++ ) {
+			$month_cols ++;
+			$days_display[ $i ] = $date->format( 'd' );
+			$days_dates[ $i ]   = $date->format( 'Y-m-d' );
+			$days_weekday[ $i ] = $date->format( 'N' );
+			$daysDM[ $i ]       = $date->format( 'j.n.' );
+			if ( $date->format( 'N' ) >= 7 ) {
+				$days_cols[ $i ] = '<col class="bg_we">';
+			}
+			$date->modify( '+1 day' );
+			if ( $date->format( 'm' ) != $month ) {
+				$colspan    = $month_cols;
+				$month_cols = 0;
+				$month      = $date->format( 'm' );
+			}
+	}
+	$last_day = $days_dates[ $days - 1 ];
+	// Get data for current item/location combination
+	$calendarData = \CommonsBooking\View\Calendar::getCalendarDataArray(
+		$cb_item_id,
+		$locationId,
+		$today,
+		$last_day
+	);
+	return $calendarData;
 }
 
 function shortcode_postGridfromCategory($atts){
