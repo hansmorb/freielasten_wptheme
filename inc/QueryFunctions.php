@@ -159,7 +159,6 @@ function shortcode_postGridfromCategory($atts){
 		'hideDefault' => 'false'
 	),$atts);
 	$atts['hideDefault'] = filter_var( $atts['hideDefault'], FILTER_VALIDATE_BOOLEAN );
-	echo $atts['hideDefault'];
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
 	if ($itemList){
 		return create_postgrid_from_posts($itemList,True); //Hide Default not working, that's why its to always true
@@ -178,7 +177,6 @@ function shortcode_itemGalleryfromCategory($atts){
 		'hideDefault' => 'true'
 	),$atts);
 	$atts['hideDefault'] = filter_var( $atts['hideDefault'], FILTER_VALIDATE_BOOLEAN );
-	echo $atts['hideDefault'];
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
 	if ($itemList){
 		return cb_itemGallery($itemList,True);
