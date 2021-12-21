@@ -175,13 +175,13 @@ function shortcode_itemGalleryfromCategory($atts){
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
-		'hideDefault' => 'false'
+		'hideDefault' => 'true'
 	),$atts);
 	$atts['hideDefault'] = filter_var( $atts['hideDefault'], FILTER_VALIDATE_BOOLEAN );
 	echo $atts['hideDefault'];
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
 	if ($itemList){
-		return cb_itemGallery($itemList,False);
+		return cb_itemGallery($itemList,True);
 	}
 	else {
 		return "no posts found";
