@@ -216,6 +216,8 @@ function create_postgrid_from_posts($items,$hideCardMeta=True) {
 function render_item_availability($cb_item) {
 	$print = '<div class="cb-postgrid-item-availability">';
   $calendarData = itemGetCalendarData($cb_item);
+	$date  = new DateTime();
+	$today = $date->format( "Y-m-d" );
 	$gotStartDate = false;
 	$gotEndDate   = false;
 	$dayIterator  = 0;
