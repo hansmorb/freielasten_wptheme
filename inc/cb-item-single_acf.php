@@ -123,7 +123,7 @@ function cb_itemGallery($items,$class="gallery1",$hideCardMeta=True){
 			$item_permalink = get_permalink($itemID);
 			$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 			$itemLocAddress = cb_item_locAdress($itemID);
-			$print .= '<div class="itemgallery fade "'.$class.'>';
+			$print .= '<div class="itemgallery fade '.$class.'">';
 				$print .= '<div class="card" id="'.$itemID.'">';
 					$print .= '<div class="card__image">';
 						$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
