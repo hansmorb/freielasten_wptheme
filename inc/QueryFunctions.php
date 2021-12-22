@@ -199,6 +199,9 @@ function itemGetCalendarData($cb_item){
 		$today,
 		$last_day
 	);
+	echo "<pre>";
+	print_r($calendarData);
+	echo "</pre>";
 	return $calendarData;
 }
 
