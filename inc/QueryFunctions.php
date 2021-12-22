@@ -253,11 +253,9 @@ function galleryJS( $post_object ) {
 	if ($galleryIterator = 0) {
 		 return;
 	 }
-	 echo '<script>
-function myFunction() {
- alert("Return galleryit = 0!");
-}
-</script>';
+	 echo "<pre>";
+	 echo "galleryJS called";
+	 echo "</pre>";
 	$galleryProps = array(
 		'galleryIterator' => $galleryIterator
 	);
