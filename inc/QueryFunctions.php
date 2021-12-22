@@ -253,7 +253,7 @@ function galleryJS( $post_object ) {
 	$script =  '<script type="text/javascript">';
 	$script .= 'var galleryIterator = ' . json_encode($galleryIterator, JSON_HEX_TAG) . ';';
 	$script .= '</script>';
-	$post_object['post_content'] = $post_object['post_content'] . $script;
+	$post_object->post_content = $post_object->post_content . $script;
 	wp_enqueue_script('itemgallery-js', get_stylesheet_directory_uri() . '/inc/js/itemGallery.js');
 	return $post_object;
 }
