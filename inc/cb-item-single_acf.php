@@ -38,7 +38,7 @@ function enqueue_postgrid_styles(){
  function enqueue_itemGallery_styles(){
 	 wp_register_style('itemgallery-css', get_stylesheet_directory_uri() . '/inc/css/itemGallery.css', __FILE__);
 	 wp_enqueue_style('itemgallery-css');
-	 wp_enqueue_script('itemgallery-js', get_stylesheet_directory_uri() . '/inc/js/itemGallery.js');
+	 //Das JS wird erst viel später geladen, (unten in QUeryFunctions)
  }
 
 /*-------------------------------------------------------------------------------
