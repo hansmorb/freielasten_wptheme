@@ -109,7 +109,7 @@ function cb_acfgallery($gallery_slug = 'galerie'){
  * -------------------------------------------------------
 */
 
-function cb_itemGallery($items,$hideCardMeta=True){
+function cb_itemGallery($items,$class="gallery1",$hideCardMeta=True){
 	enqueue_itemGallery_styles();
 	$cardMeta_class = 'card__meta card__meta--last';
 	if ($hideCardMeta){
@@ -123,8 +123,7 @@ function cb_itemGallery($items,$hideCardMeta=True){
 			$item_permalink = get_permalink($itemID);
 			$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 			$itemLocAddress = cb_item_locAdress($itemID);
-
-			$print .= '<div class="itemgallery fade">';
+			$print .= '<div class="itemgallery fade "'.$class.'>';
 				$print .= '<div class="card" id="'.$itemID.'">';
 					$print .= '<div class="card__image">';
 						$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
