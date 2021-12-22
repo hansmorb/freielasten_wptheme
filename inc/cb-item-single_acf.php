@@ -147,7 +147,7 @@ function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True){
 		$print .= '</div>';
 		$print .= '<div style="text-align:center">';
 			for($i = 1; $i < count($items) + 1; $i++):
-				$print .= '<span class="dot" onclick="currentSlide(' . $i . ',' . $galleryIterator .')"></span>';
+				$print .= '<span class="dot" onclick="currentSlide(' . $i . ',' . $galleryNo .')"></span>';
 			endfor;
 	endif;
 	$print .= '</div>'; //slideshow-container
