@@ -249,14 +249,21 @@ function shortcode_itemGalleryfromCategory($atts){
 add_shortcode( 'cb_itemgallery', 'shortcode_itemGalleryfromCategory' );
 
 function galleryJS( $post_object ) {
-	if ($galleryIterator = 0) { return $post_object;}
-	$script =  '<script type="text/javascript">';
-	$script .= 'var galleryIterator = ' . json_encode($galleryIterator, JSON_HEX_TAG) . ';';
-	$script .= '</script>';
-	$post_object->post_content = $post_object->post_content . $script;
-	return $post_object;
+	global $galleryIterator;
+	if ($galleryIterator = 0) {
+		echo '<script>
+function myFunction() {
+ alert("Return galleryit = 0!");
 }
-add_action( 'the_post', 'galleryJS' );
+</script>';
+		 return;
+	 }
+	$galleryProps = array(
+		'galleryIterator' => $galleryIterator
+	);
+	wp_localize_script('itemgallery-js','galleryProps',$galleryProps);
+}
+add_action( 'wp_enqueue_scripts', 'galleryJS' );
 
 
 ?>
