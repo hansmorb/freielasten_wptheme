@@ -206,16 +206,17 @@ function itemGetCalendarData($cb_item,$days=7){
 	return [$calendarData,$last_day];
 }
 
+
 function shortcode_postGridfromCategory($atts){
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
-		'hideDefault' => 'false'
+		'hidedefault' => 'false'
 	),$atts);
-	$atts['hideDefault'] = filter_var( $atts['hideDefault'], FILTER_VALIDATE_BOOLEAN );
+	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
 	if ($itemList){
-		return create_postgrid_from_posts($itemList,True); //Hide Default not working, that's why its to always true
+		return create_postgrid_from_posts($itemList,$atts['hidedefault']); //Hide Default not working, that's why its to always true
 	}
 	else {
 		return "no posts found";
@@ -224,16 +225,20 @@ function shortcode_postGridfromCategory($atts){
 
 add_shortcode( 'cb_postgrid', 'shortcode_postGridfromCategory' );
 
+$galleryIterator = 0;
+
 function shortcode_itemGalleryfromCategory($atts){
+	global $galleryIterator;
+	$galleryIterator = $galleryIterator + 1;
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
-		'hideDefault' => 'true'
+		'hidedefault' => 'true'
 	),$atts);
-	$atts['hideDefault'] = filter_var( $atts['hideDefault'], FILTER_VALIDATE_BOOLEAN );
+	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
 	if ($itemList){
-		return cb_itemGallery($itemList,True);
+		return cb_itemGallery($itemList,'gallery'.$galleryIterator,$atts['hidedefault']);
 	}
 	else {
 		return "no posts found";
