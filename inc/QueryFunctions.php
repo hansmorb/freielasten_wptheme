@@ -198,10 +198,12 @@ function itemGetCalendarData($cb_item,$days=7){
 		$today,
 		$last_day
 	);
+	/*
 	echo "<pre>";
 	print_r($calendarData);
 	echo "</pre>";
-	return $calendarData;
+	*/
+	return [$calendarData,$last_day];
 }
 
 function shortcode_postGridfromCategory($atts){
