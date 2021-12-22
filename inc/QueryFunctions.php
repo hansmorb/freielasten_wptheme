@@ -251,13 +251,13 @@ add_shortcode( 'cb_itemgallery', 'shortcode_itemGalleryfromCategory' );
 function galleryJS( $post_object ) {
 	global $galleryIterator;
 	if ($galleryIterator = 0) {
-		echo '<script>
+		 return;
+	 }
+	 echo '<script>
 function myFunction() {
  alert("Return galleryit = 0!");
 }
 </script>';
-		 return;
-	 }
 	$galleryProps = array(
 		'galleryIterator' => $galleryIterator
 	);
