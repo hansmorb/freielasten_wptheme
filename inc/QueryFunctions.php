@@ -229,7 +229,6 @@ $galleryIterator = 0;
 
 function shortcode_itemGalleryfromCategory($atts){
 	global $galleryIterator;
-	$galleryIterator = $galleryIterator + 1;
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
@@ -238,7 +237,9 @@ function shortcode_itemGalleryfromCategory($atts){
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
 	if ($itemList){
-		return cb_itemGallery($itemList,'gallery'.$galleryIterator,$atts['hidedefault']);
+		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault']);
+		$galleryIterator = $galleryIterator + 1;
+		return $gallery_html;
 	}
 	else {
 		return "no posts found";
@@ -249,10 +250,12 @@ add_shortcode( 'cb_itemgallery', 'shortcode_itemGalleryfromCategory' );
 
 function galleryJS( $post_object ) {
 	if ($galleryIterator = 0) { return $post_object;}
-	echo "<pre>";
-	print_r($post_object);
-	echo "</pre>";
+	$script =  '<script type="text/javascript">';
+	$script .= 'var galleryIterator = ' . json_encode($galleryIterator, JSON_HEX_TAG) . ';';
+	$script .= '</script>';
+	$post_object['post_content'] = $post_object['post_content'] . $script;
 	wp_enqueue_script('itemgallery-js', get_stylesheet_directory_uri() . '/inc/js/itemGallery.js');
+	return $post_object;
 }
 add_action( 'the_post', 'galleryJS' );
 

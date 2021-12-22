@@ -109,8 +109,9 @@ function cb_acfgallery($gallery_slug = 'galerie'){
  * -------------------------------------------------------
 */
 
-function cb_itemGallery($items,$class="gallery1",$hideCardMeta=True){
+function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True){
 	enqueue_itemGallery_styles();
+	$class = 'gallery' . $galleryNo;
 	$cardMeta_class = 'card__meta card__meta--last';
 	if ($hideCardMeta){
 		$cardMeta_class = 'card__meta card__meta--last card__hidden';
@@ -141,12 +142,12 @@ function cb_itemGallery($items,$class="gallery1",$hideCardMeta=True){
 			//$print .= '<div class="text">' . $galleryimage_caption . '</div>';
 			$print .= '</div>'; //itemgallery fade
 		endforeach;
-		$print .= '<a class="prev" onclick="plusSlides(-1)">&#10094;</a>';
-		$print .= '<a class="next" onclick="plusSlides(1)">&#10095;</a>';
+		$print .= '<a class="prev" onclick="plusSlides(-1, ' . $galleryNo . ')">&#10094;</a>';
+		$print .= '<a class="next" onclick="plusSlides(1, ' . $galleryNo . ')">&#10095;</a>';
 		$print .= '</div>';
 		$print .= '<div style="text-align:center">';
 			for($i = 1; $i < count($items) + 1; $i++):
-				$print .= '<span class="dot" onclick="currentSlide(' . $i . ')"></span>';
+				$print .= '<span class="dot" onclick="currentSlide(' . $i . ',' . $galleryIterator .')"></span>';
 			endfor;
 	endif;
 	$print .= '</div>'; //slideshow-container
