@@ -161,13 +161,12 @@ function cb_item_locAdress($cb_item_postID)
 	}
 }
 
-function itemGetCalendarData($cb_item){
+function itemGetCalendarData($cb_item,$days=7){
 	if (!is_object($cb_item)) {
 		$cb_item = get_post($cb_item);
 	}
 	$cb_item_id = $cb_item->ID;
 	$locationId = \CommonsBooking\Repository\Location::getByItem( $cb_item_id, true )[0];
-	$days = 7; //Die Anzahl der Tage die im vorraus angezeigt werden soll
 	$date  = new DateTime();
 	$today = $date->format( "Y-m-d" );
 	$days_display = array_fill( 0, $days, 'n' );
