@@ -239,6 +239,11 @@ function shortcode_itemGalleryfromCategory($atts){
 	if ($itemList){
 		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault']);
 		$galleryIterator = $galleryIterator + 1;
+		?>
+		<script>
+		var galleryIterator = <?php echo json_encode($galleryIterator); ?>;
+		</script>
+		<?php
 		return $gallery_html;
 	}
 	else {
