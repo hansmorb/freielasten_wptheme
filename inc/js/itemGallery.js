@@ -32,3 +32,9 @@ function showSlides(n, no) {
   slides[slideIndex[no]-1].style.display = "block";
 	dots[slideIndex[no]-1].className += " active";
 }
+
+jQuery(".card").click(function(e){
+  var nameid = jQuery(this).attr("id");
+  var url = '/?page_id=' + nameid;
+  window.location.href=url;
+});
