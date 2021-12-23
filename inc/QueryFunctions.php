@@ -77,7 +77,7 @@ function get_post_by_category_and_kupplung($cb_category,$kupplungen,$kupplung_me
 */
 
 /* Return: WP Post object list */
-function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=True,$locationcat_slug=''){
+function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=True,$locationcat_slug='',$sortByAvailability=True){
 	$tax = 'cb_items_category';
 	if ($cb_category != '') {
 		$term = get_term_by('slug', $cb_category, $tax);
@@ -116,16 +116,19 @@ function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=Tr
 		'meta_query' => $meta_queries,
 	);
 	$items_list = get_posts($args);
-  if ($locationcat_slug == ''){ //Wenn nicht nach Location gecheckt werden soll übergibt er die Liste einfach so
-    return $items_list;
-  }
-  else {
-    foreach ($items_list as $key => $item) {
+
+	if ($locationcat_slug != ''){ //Wenn nach locations gecheckt werden soll nimmt er die entsprechenden Items die nicht in der loc sind raus
+		foreach ($items_list as $key => $item) {
       if (!cb_item_isItemInLoc($item->ID,$locationcat_slug))
         unset($items_list[$key]);
     }
-    return $items_list;
-  }
+	}
+
+	if ($sortByAvailability == True){ //sortiert items nach Verfügbarkeit wenn das gewünscht ist
+		$items_list = sortItemsByAvailability($items_list);
+	}
+
+	return $items_list;
 }
 
 
@@ -214,7 +217,7 @@ function shortcode_postGridfromCategory($atts){
 		'hidedefault' => 'false'
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
-	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
+	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat'],True);
 	if ($itemList){
 		return create_postgrid_from_posts($itemList,$atts['hidedefault']); //Hide Default not working, that's why its to always true
 	}
@@ -235,7 +238,7 @@ function shortcode_itemGalleryfromCategory($atts){
 		'hidedefault' => 'true'
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
-	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
+	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat'],True);
 	$itemList = sortItemsByAvailability($itemList);
 	if ($itemList){
 		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault']);
