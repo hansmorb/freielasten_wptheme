@@ -130,7 +130,7 @@ function cb_acfprinttrailer(){
 				</li>
 			<?php endif; ?>
 
-			<?php if(  get_field('leergewicht') ): ?>acf add fontawesome in front of field
+			<?php if(  get_field('leergewicht') ): ?>
 				<li>
 					<i class="fas fa-weight"></i> <b> Leergewicht: </b> <?php the_field( 'leergewicht' ); ?> kg
 				</li>
