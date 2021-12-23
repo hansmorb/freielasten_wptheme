@@ -1,4 +1,3 @@
-//var galleryIterator = galleryProps.galleryIterator;
 var slideIndex = new Array(galleryIterator).fill(1);
 var slideId = new Array(galleryIterator).fill(1);
 slideId.forEach(function(item,index,array){
@@ -21,6 +20,7 @@ function currentSlide(n, no) {
 function showSlides(n, no) {
   var i;
   var slides = document.getElementsByClassName(slideId[no]);
+	console.log(slides);
 	var dots = document.getElementsByClassName("dot" + no);
   if (n > slides.length) {slideIndex[no] = 1}
   if (n < 1) {slideIndex[no] = slides.length}
