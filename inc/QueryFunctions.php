@@ -260,6 +260,7 @@ function galleryJS() {
 		'galleryIterator' => $galleryIterator
 	);
 	$js = 'var galleryIterator =' . $galleryIterator;
+	$js .= 'console.log("extra script loaded")';
 	wp_add_inline_script('itemgallery-js',$js,'before');
 	//wp_localize_script('itemgallery-js','galleryProps',$galleryProps);
 }
