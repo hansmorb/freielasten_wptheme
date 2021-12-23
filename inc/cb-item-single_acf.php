@@ -241,6 +241,9 @@ function render_item_availability($cb_item) {
 		if ( $day == $last_day ) {
 			$gotEndDate = true;
 		}
+		echo "<pre>";
+		echo $day;
+		echo "</pre>";
 		$day_days = date("d", strtotime($day));
 		$day_month = date("m", strtotime($day));
 		// Check day state
