@@ -236,6 +236,7 @@ function shortcode_itemGalleryfromCategory($atts){
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
 	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
+	$itemList = sortItemsByAvailability($itemList);
 	if ($itemList){
 		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault']);
 		$galleryIterator = $galleryIterator + 1;
@@ -252,4 +253,59 @@ function shortcode_itemGalleryfromCategory($atts){
 }
 
 add_shortcode( 'cb_itemgallery', 'shortcode_itemGalleryfromCategory' );
+
+//returns next available day for cb_item, returns day element
+function getNextAvailableDay($cb_item){
+	[$calendarData,$last_day] = itemGetCalendarData($cb_item);
+	$date  = new DateTime();
+	$today = $date->format( "Y-m-d" );
+	$gotStartDate = false;
+	$gotEndDate   = false;
+	$dayIterator  = 0;
+	foreach ( $calendarData['days'] as $day => $data ) {
+
+		// Skip additonal days
+		if ( ! $gotStartDate && $day !== $today ) {
+			continue;
+		} else {
+			$gotStartDate = true;
+		}
+
+		if ( $gotEndDate ) {
+			continue;
+		}
+
+		if ( $day == $last_day ) {
+			$gotEndDate = true;
+		}
+		$day_days = date("d", strtotime($day));
+		$day_month = date("m", strtotime($day));
+		// Check day state
+		if ( ! count( $data['slots'] ) ) {
+			continue;
+		} elseif ( $data['holiday'] ) {
+			continue;
+		} elseif ( $data['locked'] ) {
+			if ( $data['firstSlotBooked'] && $data['lastSlotBooked'] ) {
+				continue;
+		} elseif ( $data['partiallyBookedDay'] ) {
+				continue;
+		}
+		} else {
+			return $day;
+		}
+	}
+	return false;
+}
+
+function sortItemsByAvailability($cb_items){
+	$ItemsAvailability = array();
+	foreach ($cb_items as $key => $cb_item){
+		$ItemsAvailability[] = array('item_key' => $key, 'nextAvailableDay' => getNextAvailableDay($cb_item));
+	}
+	echo "<pre>";
+	print_r($ItemsAvailability);
+	echo "</pre>";
+	return $cb_items;
+}
 ?>
