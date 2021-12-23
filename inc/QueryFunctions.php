@@ -259,7 +259,9 @@ function galleryJS( $post_object ) {
 	$galleryProps = array(
 		'galleryIterator' => $galleryIterator
 	);
-	wp_localize_script('itemgallery-js','galleryProps',$galleryProps);
+	$js = 'var galleryIterator =' . $galleryIterator;
+	wp_add_inline_script('itemgallery-js',$js,'before');
+	//wp_localize_script('itemgallery-js','galleryProps',$galleryProps);
 }
 add_action( 'wp_enqueue_scripts', 'galleryJS' );
 

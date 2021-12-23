@@ -125,7 +125,7 @@ function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True){
 			$item_permalink = get_permalink($itemID);
 			$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 			$itemLocAddress = cb_item_locAdress($itemID);
-			$print .= '<div class="itemgallery fade '.$class.'">';
+			$print .= '<div class="'.$class.' fade">';
 				$print .= '<div class="card" id="'.$itemID.'">';
 					$print .= '<div class="card__image">';
 						$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
@@ -152,6 +152,9 @@ function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True){
 			endfor;
 	endif;
 	$print .= '</div>'; //slideshow-container
+	$print .= '<style>';
+	$print .= '.' . $class . '{display: none}';
+	$print .= '</style>';
 	return $print;
 }
 

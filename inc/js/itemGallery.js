@@ -1,4 +1,4 @@
-var galleryIterator = galleryProps.galleryIterator;
+//var galleryIterator = galleryProps.galleryIterator;
 var slideIndex = new Array(galleryIterator);
 var slideId = new Array(galleryIterator);
 slideIndex.foreach(function(item,index,array){
