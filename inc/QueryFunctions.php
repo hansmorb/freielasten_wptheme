@@ -77,7 +77,7 @@ function get_post_by_category_and_kupplung($cb_category,$kupplungen,$kupplung_me
 */
 
 /* Return: WP Post object list */
-function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=True,$locationcat_slug=''){
+function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=True,$locationcat_slug='',$sortByAvailability=True){
 	$tax = 'cb_items_category';
 	if ($cb_category != '') {
 		$term = get_term_by('slug', $cb_category, $tax);
@@ -116,16 +116,19 @@ function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=Tr
 		'meta_query' => $meta_queries,
 	);
 	$items_list = get_posts($args);
-  if ($locationcat_slug == ''){ //Wenn nicht nach Location gecheckt werden soll übergibt er die Liste einfach so
-    return $items_list;
-  }
-  else {
-    foreach ($items_list as $key => $item) {
+
+	if ($locationcat_slug != ''){ //Wenn nach locations gecheckt werden soll nimmt er die entsprechenden Items die nicht in der loc sind raus
+		foreach ($items_list as $key => $item) {
       if (!cb_item_isItemInLoc($item->ID,$locationcat_slug))
         unset($items_list[$key]);
     }
-    return $items_list;
-  }
+	}
+
+	if ($sortByAvailability == True){ //sortiert items nach Verfügbarkeit wenn das gewünscht ist
+		$items_list = sortItemsByAvailability($items_list);
+	}
+
+	return $items_list;
 }
 
 
@@ -214,7 +217,7 @@ function shortcode_postGridfromCategory($atts){
 		'hidedefault' => 'false'
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
-	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
+	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat'],True);
 	if ($itemList){
 		return create_postgrid_from_posts($itemList,$atts['hidedefault']); //Hide Default not working, that's why its to always true
 	}
@@ -235,7 +238,8 @@ function shortcode_itemGalleryfromCategory($atts){
 		'hidedefault' => 'true'
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
-	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat']);
+	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat'],True);
+	$itemList = sortItemsByAvailability($itemList);
 	if ($itemList){
 		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault']);
 		$galleryIterator = $galleryIterator + 1;
@@ -252,4 +256,55 @@ function shortcode_itemGalleryfromCategory($atts){
 }
 
 add_shortcode( 'cb_itemgallery', 'shortcode_itemGalleryfromCategory' );
+
+//returns next available day for cb_item, returns day element
+function getNextAvailableDay($cb_item){
+	[$calendarData,$last_day] = itemGetCalendarData($cb_item);
+	$date  = new DateTime();
+	$today = $date->format( "Y-m-d" );
+	$gotStartDate = false;
+	$gotEndDate   = false;
+	$dayIterator  = 0;
+	foreach ( $calendarData['days'] as $day => $data ) {
+
+		// Skip additonal days
+		if ( ! $gotStartDate && $day !== $today ) {
+			continue;
+		} else {
+			$gotStartDate = true;
+		}
+
+		if ( $gotEndDate ) {
+			continue;
+		}
+
+		if ( $day == $last_day ) {
+			$gotEndDate = true;
+		}
+		$day_days = date("d", strtotime($day));
+		$day_month = date("m", strtotime($day));
+		// Check day state
+		if ( ! count( $data['slots'] ) ) {
+			continue;
+		} elseif ( $data['holiday'] ) {
+			continue;
+		} elseif ( $data['locked'] ) {
+			if ( $data['firstSlotBooked'] && $data['lastSlotBooked'] ) {
+				continue;
+		} elseif ( $data['partiallyBookedDay'] ) {
+				continue;
+		}
+		} else {
+			return $day;
+		}
+	}
+	return false;
+}
+
+function sortItemsByAvailability($cb_items){
+	usort($cb_items, function($a,$b){
+		return strtotime(getNextAvailableDay($a)) <=> strtotime(getNextAvailableDay($b));
+	});
+	return $cb_items;
+}
 ?>
