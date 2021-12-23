@@ -20,8 +20,6 @@ function currentSlide(n, no) {
 function showSlides(n, no) {
   var i;
   var slides = document.getElementsByClassName(slideId[no]);
-	console.log("No:" + no);
-	console.log(slides);
 	var dots = document.getElementsByClassName("dot" + no);
   if (n > slides.length) {slideIndex[no] = 1}
   if (n < 1) {slideIndex[no] = slides.length}
