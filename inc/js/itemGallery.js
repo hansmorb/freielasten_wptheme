@@ -1,11 +1,10 @@
 //var galleryIterator = galleryProps.galleryIterator;
-var slideIndex = new Array(galleryIterator);
-var slideId = new Array(galleryIterator);
-slideIndex.foreach(function(item,index,array){
-  slideIndex[index] = 1;
+var slideIndex = new Array(galleryIterator).fill(1);
+var slideId = new Array(galleryIterator).fill(1);
+slideId.forEach(function(item,index,array){
   slideId[index] = "gallery" + index;
 });
-slideIndex.foreach(function(item,index,array){
+slideIndex.forEach(function(item,index,array){
   showSlides(1, index);
 });
 
