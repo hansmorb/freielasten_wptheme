@@ -248,7 +248,7 @@ function shortcode_itemGalleryfromCategory($atts){
 
 add_shortcode( 'cb_itemgallery', 'shortcode_itemGalleryfromCategory' );
 
-function galleryJS( $post_object ) {
+function galleryJS() {
 	global $galleryIterator;
 	if ($galleryIterator = 0) {
 		 return;
@@ -263,7 +263,7 @@ function galleryJS( $post_object ) {
 	wp_add_inline_script('itemgallery-js',$js,'before');
 	//wp_localize_script('itemgallery-js','galleryProps',$galleryProps);
 }
-add_action( 'wp_enqueue_scripts', 'galleryJS' );
+add_action( 'the_post', 'galleryJS' );
 
 
 ?>
