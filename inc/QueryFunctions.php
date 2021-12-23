@@ -299,22 +299,9 @@ function getNextAvailableDay($cb_item){
 }
 
 function sortItemsByAvailability($cb_items){
-	$ItemsAvailability = array();
-	foreach ($cb_items as $key => $cb_item){
-		$ItemsAvailability[] = array('item_key' => $key, 'nextAvailableDay' => getNextAvailableDay($cb_item));
-	}
-	usort($ItemsAvailability, function ($a,$b){
-		return strtotime($a['nextAvailableDay']) <=> strtotime($b['nextAvailableDay']);
-	});
-	echo "<pre>";
-	print_r($ItemsAvailability);
-	echo "</pre>";
 	usort($cb_items, function($a,$b){
 		return strtotime(getNextAvailableDay($a)) <=> strtotime(getNextAvailableDay($b));
 	});
-	echo "<pre>";
-	print_r($cb_items);
-	echo "</pre>";
 	return $cb_items;
 }
 ?>
