@@ -52,15 +52,20 @@ get_header();
 			$currentTerm_slug = get_query_var('term');
 			$currentTerm_name = get_term_by( 'slug', $currentTerm_slug, get_query_var('taxonomy') )->name;
 			$itemlist_for_loc = get_cb_items_by_category_and_location($tax_slug,True,$currentTerm_slug);
-			enqueue_postgrid_styles(); ?>
+			?>
 			<div class="nv-page-title-wrap nv-big-title">
 				<div class="nv-page-title ">
 				<h1><?php echo $tax_name;?> in <?php echo $currentTerm_name;?></h1>
 				</div><!--.nv-page-title-->
-			</div>
-			<?php
-			if ( $itemlist_for_loc ) {
-				echo create_postgrid_from_posts($itemlist_for_loc);
+			</div><?php
+			if (wp_is_mobile()){
+				echo do_shortcode("[cb_itemgallery itemcat='".$tax_slug." locationcat='".$currentTerm_slug."' hidedefault='false']");
+			}
+			else {
+				enqueue_postgrid_styles();
+				if ( $itemlist_for_loc ) {
+					echo create_postgrid_from_posts($itemlist_for_loc);
+				}
 			}
 			/**
 			 * Executes actions after the page content.
