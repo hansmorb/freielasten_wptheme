@@ -288,7 +288,7 @@ function cb_item_single_hook(){
 		cb_acfprinttrailer();
 	}
 	elseif ( has_term('zubehoer','cb_items_category') ) {
-		require_once (get_stylesheet_directory() . '/inc/Templates/zubehorTemplate.php');
+		require_once (get_stylesheet_directory() . '/inc/Templates/zubehoerTemplate.php');
 		cb_acfprintzubehoer();
 	}
 	elseif ( has_term('inklusion','cb_items_category') ) {
