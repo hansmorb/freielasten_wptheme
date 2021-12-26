@@ -26,4 +26,6 @@ require_once (get_stylesheet_directory() . '/inc/custom_menu.php'); //Custom Men
 require_once (get_stylesheet_directory() . '/inc/AdminOptions.php'); //ACF Feld für Optionsmenü
 require_once (get_stylesheet_directory() . '/inc/CB_Meta_Key.php'); //ACF Feld für Optionsmenü
 require_once (get_stylesheet_directory() . '/inc/QueryFunctions.php'); //Alle Custom Funktionen um posts nach bestimmten Kriterien abzufragen
+require_once (get_stylesheet_directory() . '/inc/Shortcodes.php'); //Fügt Shortcodes hinzu
+
 ?>
