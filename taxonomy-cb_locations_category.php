@@ -51,7 +51,8 @@ get_header();
 			$tax_name = get_term($tax)->name;
 			$currentTerm_slug = get_query_var('term');
 			$currentTerm_name = get_term_by( 'slug', $currentTerm_slug, get_query_var('taxonomy') )->name;
-			$itemlist_for_loc = get_cb_items_by_category_and_location($tax_slug,True,$currentTerm_slug);
+			$itemlist_for_loc = get_cb_items_by_category($tax_slug);
+			$itemlist_for_loc = filterPostsByLocation($itemlist_for_loc,$currentTerm_slug)
 			?>
 			<div class="nv-page-title-wrap nv-big-title">
 				<div class="nv-page-title ">

@@ -77,7 +77,7 @@ function get_post_by_category_and_kupplung($cb_category,$kupplungen,$kupplung_me
 */
 
 /* Return: WP Post object list */
-function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=True,$locationcat_slug='',$sortByAvailability=True){
+function get_cb_items_by_category($cb_category='',$bookableCheck=True){
 	$tax = 'cb_items_category';
 	if ($cb_category != '') {
 		$term = get_term_by('slug', $cb_category, $tax);
@@ -116,21 +116,23 @@ function get_cb_items_by_category_and_location($cb_category='',$bookableCheck=Tr
 		'meta_query' => $meta_queries,
 	);
 	$items_list = get_posts($args);
-
-	if ($locationcat_slug != ''){ //Wenn nach locations gecheckt werden soll nimmt er die entsprechenden Items die nicht in der loc sind raus
-		foreach ($items_list as $key => $item) {
-      if (!cb_item_isItemInLoc($item->ID,$locationcat_slug))
-        unset($items_list[$key]);
-    }
-	}
-
-	if ($sortByAvailability == True){ //sortiert items nach Verfügbarkeit wenn das gewünscht ist
-		$items_list = sortItemsByAvailability($items_list);
-	}
-
 	return $items_list;
 }
 
+/* Filtert sämtliche Artikel heraus die nicht in der entsprechenden Location Kategorie sind*/
+function filterPostsByLocation($post_list, $locationcat_slug){
+	if ($post_list && $locationcat_slug){
+		foreach ($post_list as $key => $item){
+			if (!cb_item_isItemInLocCat($item->ID,$locationcat_slug)){
+				unset($post_list[$key]);
+			}
+		}
+		return $post_list;
+	}
+	else {
+		return false;
+	}
+}
 
 function cb_item_isBookable($cb_item_postID){
   $locations = \CommonsBooking\Repository\Location::getByItem( $cb_item_postID, true );
@@ -142,7 +144,7 @@ function cb_item_isBookable($cb_item_postID){
   }
 }
 
-function cb_item_isItemInLoc($cb_item_postID,$cb_location_loccat_slug)
+function cb_item_isItemInLocCat($cb_item_postID,$cb_location_loccat_slug)
 {
 	$locations = \CommonsBooking\Repository\Location::getByItem( $cb_item_postID, true );
 	if ( count($locations) ) {

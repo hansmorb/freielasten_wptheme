@@ -65,7 +65,7 @@ function acf_populate_menu($items, $args){
 				$subMenu_name = get_sub_field('cat_name'); //Klarname der entsprechenden Kategorie
 				$subMenu_linkedPage = get_sub_field('linkingpage'); //Seite über die Kategorie
 
-				$subMenu_itemlist = get_cb_items_by_category_and_location($subMenu_tax_slug,$setting_ShowBookable); //Checkt erstmal nur, ob für die Kategorie auch Items da sind um welche anzuzeigen
+				$subMenu_itemlist = get_cb_items_by_category($subMenu_tax_slug,$setting_ShowBookable); //Checkt erstmal nur, ob für die Kategorie auch Items da sind um welche anzuzeigen
 				if ($subMenu_itemlist){ //Nur Element hinzufügen wenn es auch items in der Kategorie gibt
 					$subMenu_html .= '<li class="menu-item-has-children"> <a href="'.$subMenu_linkedPage.'">'. $subMenu_ico_html .'<span> '.$subMenu_name.'</span>' . $sub_html_caret . '</a>'; //Menüpunkt für Kategorie hinzufügen
 					if ($setting_SortByLocation) {
@@ -79,7 +79,8 @@ function acf_populate_menu($items, $args){
 							$itemLocation_tax_url = get_term_link(get_term($itemLocation_tax)) . '?itemcat=' . $subMenu_tax; //Fügt zusätzliche Variable hinzu, wird von taxonomy-cb_locations_category.php abgerufen
 
 							$itemLocation_ico = get_sub_field('standort_icon');
-							$itemLocation_itemList = get_cb_items_by_category_and_location($subMenu_tax_slug, $setting_ShowBookable, $itemLocation_tax_slug);
+							$itemLocation_itemList = get_cb_items_by_category($subMenu_tax_slug, $setting_ShowBookable);
+							$itemLocation_itemList = filterPostsByLocation($itemLocation_itemList, $itemLocation_tax_slug);
 							$itemLocation_html = '';
 							if ($itemLocation_itemList) {
 								$itemLocation_html = '<li class="menu-item-has-children"> <a href="'.$itemLocation_tax_url.'">'.$itemLocation_ico.'<span> '.$itemLocation_tax_name. '</span>' . $sub_html_caret . '</a>';

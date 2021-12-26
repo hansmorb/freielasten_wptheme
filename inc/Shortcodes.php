@@ -12,10 +12,22 @@ function shortcode_postGridfromCategory($atts){
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
-		'hidedefault' => 'false'
+		'hidedefault' => 'false',
+    'sortbyavailability' => 'true'
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
-	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat'],True);
+  $atts['sortbyavailability'] = filter_var( $atts['sortbyavailability'], FILTER_VALIDATE_BOOLEAN);
+
+  $itemList = get_cb_items_by_category($atts['itemcat']);
+
+  if ($atts['locationcat'] != '') {
+    $itemList = filterPostsByLocation($itemList,$atts['locationcat']);
+  }
+
+  if ($atts['sortbyavailability']){
+    $itemList = sortItemsByAvailability($itemList);
+  }
+
 	if ($itemList){
 		return create_postgrid_from_posts($itemList,$atts['hidedefault']); //Hide Default not working, that's why its to always true
 	}
@@ -33,11 +45,22 @@ function shortcode_itemGalleryfromCategory($atts){
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
-		'hidedefault' => 'true'
+		'hidedefault' => 'true',
+    'sortbyavailability' => 'true'
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
-	$itemList = get_cb_items_by_category_and_location($atts['itemcat'],True,$atts['locationcat'],True);
-	$itemList = sortItemsByAvailability($itemList);
+  $atts['sortbyavailability'] = filter_var( $atts['sortbyavailability'], FILTER_VALIDATE_BOOLEAN);
+
+	$itemList = get_cb_items_by_category($atts['itemcat']);
+
+  if ($atts['locationcat'] != '') {
+    $itemList = filterPostsByLocation($itemList,$atts['locationcat']);
+  }
+
+  if ($atts['sortbyavailability']){
+    $itemList = sortItemsByAvailability($itemList);
+  }
+
 	if ($itemList){
 		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault']);
 		$galleryIterator = $galleryIterator + 1;
