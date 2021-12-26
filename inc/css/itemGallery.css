@@ -416,7 +416,7 @@
   display: none;
 }
 
-.card__image:hover .card__meta.card__meta--last.card__hidden{
+.slideshow-container:hover .card__meta.card__meta--last.card__hidden{
   display: block;
   transition: 0.2s transform cubic-bezier(0.25, 0.46, 0.45, 0.94), 0.2s clip-path cubic-bezier(0.25, 0.46, 0.45, 0.94)
 }
