@@ -19,10 +19,10 @@ function cb_acfprinttrailer(){
 					if ($kupplungen_value == 'weber')
 					{ ?>
 						<a href="<?php the_field('page_weber','option'); ?>"><b>Weber</b> Kupplung </a>
-					<?php}
+					<?php }
 					elseif ($kupplungen_value == 'haerry'){ ?>
 						<a href="<?php the_field('page_haerry','option'); ?>"><b>Haerry</b> Kupplung </a>
-					<?php}
+					<?php }
 					elseif ($kupplungen_value == 'other'){
 						the_field( 'alt_kupplung' );
 					}
