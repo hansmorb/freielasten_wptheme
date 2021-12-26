@@ -13,7 +13,7 @@
 function cb_acfprintzubehoer(){
 	echo cb_acfgallery();
 	the_field( 'zubehoer_desc' );
-	$compatible_with = get_field( 'compatible_with' );
+	$compatible_with = get_field( 'attached_to' );
 	if ( $compatible_with ) {
 		$postGrid = create_postgrid_from_posts($compatible_with);
 		if ($postGrid != False){
