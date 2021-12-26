@@ -17,12 +17,12 @@ function cb_acfprinttrailer(){
 				$kupplungen_checked_values = get_field('kupplungen');
 				foreach ($kupplungen_checked_values as $kupplungen_value){
 					if ($kupplungen_value == 'weber')
-					{
-						echo "<b>Weber</b> Kupplung";
-					}
-					elseif ($kupplungen_value == 'haerry'){
-						echo "<b>Haerry</b> Kupplung";
-					}
+					{ ?>
+						<a href="<?php the_field('page_weber','option'); ?>"><b>Weber</b> Kupplung </a>
+					<?php}
+					elseif ($kupplungen_value == 'haerry'){ ?>
+						<a href="<?php the_field('page_haerry','option'); ?>"><b>Haerry</b> Kupplung </a>
+					<?php}
 					elseif ($kupplungen_value == 'other'){
 						the_field( 'alt_kupplung' );
 					}
