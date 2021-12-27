@@ -50,7 +50,12 @@ function acf_populate_menu($items, $args){
 		$parentItem_name = get_field( 'name_ausleihmenu', $menu); //der Titel des "Ausleihen" Menüs
 		$parentItem_url = get_field( 'dazugehorige_seite_ausleihmenu', $menu ); //die URL der Hauptausleihseite
 		$parentItem_logo_html = returnsvg_html($parentItem_logo["url"],$setting_menucolor);
-		$parentItem_html = '<li class="menu_ausleihen menu-item menu-item-has-children"><a href="'.esc_url($parentItem_url).'">'.$parentItem_logo_html.$parentItem_name.$html_caret.'</a>';
+		$parentItem_html = '<li class="menu_ausleihen menu-item menu-item-has-children">';
+		$parentItem_html .= '<a href="'.esc_url($parentItem_url).'">';
+		$parentItem_html .= '<span class="menu-item-title-wrap dd-title">';
+		$parentItem_html .= $parentItem_logo_html.$parentItem_name.$html_caret;
+		$parentItem_html .= '</span>';
+		$parentItem_html .= '</a>';
 
 
 		$subMenu_html = '<ul class="sub-menu">';
@@ -157,7 +162,7 @@ function color_menu_items($items) {
 								$st .= $nav_menu . ' li.' . $repl . ' a::after { background-color:' . $text_color . ';}';
         		}
     		}
-				$st .= '#nv-primary-navigation-top .menuicon {
+				$st .= $nav_menu . ' .menuicon {
 								max-height: 50%;
   							width: 50px;
   							margin: 5px;
@@ -178,7 +183,7 @@ let setDefaultPalette = function() {
         // Find the field key
         let targetFieldKey = $field[0]['dataset']['key'];
 
-        args.palettes = [ '#3155a1', '#801622', '#00848b', '#009fe3', '#ffcb1d', '#79b50d' ];
+        args.palettes = [ '#3155a1', '#801622', '#00848b', '#009fe3', '#ffcb1d', '#79b50d', '#000000', '#ffffff' ];
 
         // Return
         return args;
