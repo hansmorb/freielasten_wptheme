@@ -144,13 +144,17 @@ add_filter('wp_nav_menu_objects', 'menuobject_icons', 10, 2);
 function color_menu_items($items) {
     preg_match_all('/menu-item-([0-9]{1,10})/ ', $items, $matches);
 		$st = '';
+		$nav_menu = '#nv-primary-navigation-top';
+		if (wp_is_mobile()){
+			$nav_menu = '#nv-primary-navigation-sidebar';
+		}
     if (isset($matches[0]) && isset($matches[1])) {
 				$st = '<style type="text/css">';
         foreach ($matches[0] as $k => $repl) {
             $post_id = $matches[1][$k];
 						if($text_color = get_field('color-menu_obj', $post_id)){
-                $st .= '#nv-primary-navigation-top li.' . $repl . ' a { color:' . $text_color . ';}';
-								$st .= '#nv-primary-navigation-top li.' . $repl . ' a::after { background-color:' . $text_color . ';}';
+                $st .= $nav_menu . ' li.' . $repl . ' a { color:' . $text_color . ';}';
+								$st .= $nav_menu . ' li.' . $repl . ' a::after { background-color:' . $text_color . ';}';
         		}
     		}
 				$st .= '#nv-primary-navigation-top .menuicon {
@@ -174,7 +178,7 @@ let setDefaultPalette = function() {
         // Find the field key
         let targetFieldKey = $field[0]['dataset']['key'];
 
-        args.palettes = [ '#3155a1', '#801622', '#00848b', '#009fe3', '#ffcb1d' ];
+        args.palettes = [ '#3155a1', '#801622', '#00848b', '#009fe3', '#ffcb1d', '#79b50d' ];
 
         // Return
         return args;
