@@ -52,9 +52,10 @@ function acf_populate_menu($items, $args){
 		$parentItem_logo_html = returnsvg_html($parentItem_logo["url"],$setting_menucolor);
 		$parentItem_html = '<li class="menu_ausleihen menu-item menu-item-has-children">';
 		$parentItem_html .= '<a href="'.esc_url($parentItem_url).'">';
-		$parentItem_html .= '<span class="menu-item-title-wrap dd-title">';
-		$parentItem_html .= $parentItem_logo_html.$parentItem_name.$html_caret;
-		$parentItem_html .= '</span>';
+			$parentItem_html .= '<span class="menu-item-title-wrap dd-title">';
+				$parentItem_html .= $parentItem_logo_html.$parentItem_name;
+				$parentItem_html .= '</span>';
+				$parentItem_html .= $html_caret;
 		$parentItem_html .= '</a>';
 
 
