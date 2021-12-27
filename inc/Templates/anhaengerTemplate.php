@@ -97,7 +97,7 @@ function cb_acfprinttrailer(){
 		<?php
 		$kupplungen_checked_values = get_field( 'kupplungen' );
 		if ( $kupplungen_checked_values ) :
-			$postGrid = create_postgrid_from_posts(get_post_by_category_and_kupplung('fahrrad',$kupplungen_checked_values));
+			$postGrid = create_postgrid_from_posts(get_post_by_category_and_kupplung('fahrrad',$kupplungen_checked_values),(wp_is_mobile() ? False : True ));
 			if ($postGrid != False) { ?>
 				<?php
 				echo $postGrid;

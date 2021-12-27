@@ -14,7 +14,7 @@ function cb_acfprintinklusion(){
 	the_field( 'inklusion_desc' );
 	$compatible_with = get_field( 'compatible_with' );
 	if ( $compatible_with ) {
-		$postGrid = create_postgrid_from_posts($compatible_with);
+		$postGrid = create_postgrid_from_posts($compatible_with,(wp_is_mobile() ? False : True ));
 		if ($postGrid != False){
 			echo '<br><h3> <i class="fas fa-link"></i> Kompatibel mit:</h3><br>';
 			echo $postGrid;

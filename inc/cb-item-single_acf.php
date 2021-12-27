@@ -216,7 +216,10 @@ function create_postgrid_from_posts($items,$hideCardMeta=True) {
 		}
 
 }
-
+/*-------------------------------------------------------------------------------
+ * ENDE Create PostGrid from Posts
+ * -------------------------------------------------------------------------------
+*/
 function render_item_availability($cb_item) {
 	$print = '<div class="cb-postgrid-item-availability">';
   [$calendarData,$last_day] = itemGetCalendarData($cb_item);
@@ -263,10 +266,7 @@ function render_item_availability($cb_item) {
 	return $print;
 }
 
-/*-------------------------------------------------------------------------------
- * ENDE Create PostGrid from Posts
- * -------------------------------------------------------------------------------
-*/
+
 
 /*-------------------------------------------------------------------------------
  * START cb-item-single Hook
