@@ -254,7 +254,7 @@ function getNextAvailableDay($cb_item){
 			return $day;
 		}
 	}
-	echo $cb_item->post_title . " nothingfound"
+	echo $cb_item->post_title . " nothingfound";
 	return "1997-01-01";
 }
 
