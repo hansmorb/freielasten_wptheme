@@ -254,7 +254,7 @@ function getNextAvailableDay($cb_item){
 			return $day;
 		}
 	}
-	return false;
+	return "1997-01-01";
 }
 
 function sortItemsByAvailability($cb_items){
