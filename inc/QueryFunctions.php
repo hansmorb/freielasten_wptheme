@@ -250,12 +250,10 @@ function getNextAvailableDay($cb_item){
 				continue;
 		}
 		} else {
-			echo $cb_item->post_title . " " . $day;
 			return $day;
 		}
 	}
-	echo $cb_item->post_title . " nothingfound";
-	return "1997-01-01";
+	return "2500-1-1"; //gibt sehr spätes Datum zurück wenn nix verfügbar ist
 }
 
 function sortItemsByAvailability($cb_items){
