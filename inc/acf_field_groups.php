@@ -2151,7 +2151,7 @@ array(
   'id' => '',
 ),
 'default_value' => '',
-'placeholder' => 'Passt so gerade diagonal in den Aufzug am Haupt-Bhf',
+'placeholder' => '',
 'prepend' => '',
 'append' => '',
 'maxlength' => '',
@@ -2432,5 +2432,5 @@ array(
 'acfe_note' => '',
 ));
 
-endif;				
+endif;
 ?>
