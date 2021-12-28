@@ -241,7 +241,7 @@ function getNextAvailableDay($cb_item){
 		if ( ! count( $data['slots'] ) ) {
 			continue;
 		} elseif ( $data['holiday'] ) {
-			echo $cb_item->ID . " holiday";
+			//echo $cb_item->ID . " holiday";
 			continue;
 		} elseif ( $data['locked'] ) {
 			if ( $data['firstSlotBooked'] && $data['lastSlotBooked'] ) {
@@ -250,6 +250,7 @@ function getNextAvailableDay($cb_item){
 				continue;
 		}
 		} else {
+			echo $cb_item->post_title . " " . $day;
 			return $day;
 		}
 	}
