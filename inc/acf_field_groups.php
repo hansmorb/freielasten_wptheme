@@ -1833,6 +1833,27 @@ array(
 'step' => '',
 ),
 array(
+'key' => 'field_61cafd24be8d0',
+'label' => 'Maximale Belastung',
+'name' => 'gesamtbelastung',
+'type' => 'number',
+'instructions' => 'Das zulässige Gesamtgewicht des Rades mit fahrender Person.',
+'required' => 0,
+'conditional_logic' => 0,
+'wrapper' => array(
+  'width' => '',
+  'class' => '',
+  'id' => '',
+),
+'default_value' => '',
+'placeholder' => '00',
+'prepend' => '',
+'append' => 'kg',
+'min' => '',
+'max' => '',
+'step' => '',
+),
+array(
 'key' => 'field_60bf8d8b3c77c',
 'label' => 'Bereitgestellt von...',
 'name' => 'bereitgestellt_von',
@@ -2245,7 +2266,7 @@ array(
 'hide_on_screen' => '',
 'active' => true,
 'description' => '',
-'show_in_rest' => false,
+'show_in_rest' => 0,
 'acfe_display_title' => '',
 'acfe_autosync' => '',
 'acfe_form' => 0,
@@ -2411,5 +2432,5 @@ array(
 'acfe_note' => '',
 ));
 
-endif;		
+endif;				
 ?>

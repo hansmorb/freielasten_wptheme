@@ -84,6 +84,14 @@ if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
 				<i class="fas fa-cogs"></i> <b>Schaltungstyp:</b> <?php the_field( 'schaltung' ); ?>
 			</li>
 		<?php endif; ?>
+
+		<?php if(  get_field('gesamtbelastung') ): ?>
+			<li>
+				<i class="fas fa-weight"></i> <b>Maximale Belastung (inkl. Fahrer*in):</b> <?php the_field( 'gesamtbelastung' ); ?> kg
+			</li>
+		<?php endif; ?>
+		<li>
+
 		<?php if(  get_field('leergewicht') ): ?>
 			<li>
 				<i class="fas fa-weight"></i> <b>Leergewicht:</b> <?php the_field( 'leergewicht' ); ?> kg
