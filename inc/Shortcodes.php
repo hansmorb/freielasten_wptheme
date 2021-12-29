@@ -12,6 +12,7 @@ function shortcode_postGridfromCategory($atts){
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
+		'class' => '',
 		'hidedefault' => 'false',
     'sortbyavailability' => 'true',
 		'kupplung' => ''
@@ -38,7 +39,7 @@ function shortcode_postGridfromCategory($atts){
 
 
 	if ($itemList){
-		return create_postgrid_from_posts($itemList,$atts['hidedefault']); //Hide Default not working, that's why its to always true
+		return create_postgrid_from_posts($itemList,$atts['hidedefault'],$atts['class']);
 	}
 	else {
 		return "no posts found";
@@ -54,7 +55,8 @@ function shortcode_itemGalleryfromCategory($atts){
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
-		'hidedefault' => 'true',
+		'class' => '',
+		'hidedefault' => 'true',//Hide Default not working, that's why its to always
     'sortbyavailability' => 'true'
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
@@ -71,7 +73,7 @@ function shortcode_itemGalleryfromCategory($atts){
   }
 
 	if ($itemList){
-		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault']);
+		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault'],$atts['class']);
 		$galleryIterator = $galleryIterator + 1;
 		?>
 		<script>

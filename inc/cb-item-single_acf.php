@@ -103,14 +103,14 @@ function cb_acfgallery($gallery_slug = 'galerie'){
 */
 
 /*-------------------------------------------------------------------------------
- * START Create ItemGallery (0% fertig)
+ * START Create ItemGallery (100% fertig)
  * -------------------------------------------------------------------------------
  * Funktion erstellt aus einer get_posts Array eine responsive gallery
  * mit Standort und Verfügbarkeit
  * -------------------------------------------------------
 */
 
-function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True){
+function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True,$css_class=''){
 	enqueue_itemGallery_styles();
 	$class = 'gallery' . $galleryNo;
 	$cardMeta_class = 'card__meta card__meta--last';
@@ -118,7 +118,7 @@ function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True){
 		$cardMeta_class = 'card__meta card__meta--last card__hidden';
 	}
 	if( $items ):
-		$print = '<div class="slideshow-container">';
+		$print = '<div class="slideshow-container"'.$css_class.'>';
 		foreach( $items as $item ):
 			$itemID = $item->ID;
 			$item_title = $item->post_title;
@@ -176,7 +176,7 @@ function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True){
  * -------------------------------------------------------
 */
 
-function create_postgrid_from_posts($items,$hideCardMeta=True) {
+function create_postgrid_from_posts($items,$hideCardMeta=True,$css_class='') {
 	$cardMeta_class = 'card__meta card__meta--last';
 	if ($hideCardMeta){
 		$cardMeta_class = 'card__meta card__meta--last card__hidden';
@@ -191,7 +191,7 @@ function create_postgrid_from_posts($items,$hideCardMeta=True) {
 				$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 				$itemLocAddress = cb_item_locAdress($itemID);
 
-				$print .= '<div class="grid">';
+				$print .= '<div class="grid "'.$css_class.'>';
 					$print .= '<div class="card" id="'.$itemID.'">';
 						$print .= '<div class="card__image">';
 							$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
