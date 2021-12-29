@@ -52,7 +52,8 @@ get_header();
 			$currentTerm_slug = get_query_var('term');
 			$currentTerm_name = get_term_by( 'slug', $currentTerm_slug, get_query_var('taxonomy') )->name;
 			$itemlist_for_loc = get_cb_items_by_category($tax_slug);
-			$itemlist_for_loc = filterPostsByLocation($itemlist_for_loc,$currentTerm_slug)
+			$itemlist_for_loc = filterPostsByLocation($itemlist_for_loc,$currentTerm_slug);
+			$itemlist_for_loc = sortItemsByAvailability($itemlist_for_loc);
 			?>
 			<div class="nv-page-title-wrap nv-big-title">
 				<div class="nv-page-title ">
