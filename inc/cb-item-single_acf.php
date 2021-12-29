@@ -260,7 +260,7 @@ function render_item_availability($cb_item) {
 		} else {
 			$print .= '<div class="cb-postgrid-item-availability-day available">';
 		}
-		$print.= '<div class="cb-postgrid-availability-days">' . $day_days .'.</div>' . '<div class="cb-postgrid-availability-month">' .$day_month.'.</div></div>';
+		$print.= '<div class="cb-postgrid-availability-days">' . $day_days .'</div>' . '<div class="cb-postgrid-availability-month">' .$day_month.'</div></div>';
 	}
 	$print .= '</div>'; /*END class="cb-postgrid-item-availability"*/
 	return $print;
