@@ -93,7 +93,9 @@ function acf_populate_menu($items, $args){
 								$itemLocation_html .= '</li>'; //Liste für Submenü Location schließen + Listenpunkt schließen
 							}
 							$subMenu_html .= $itemLocation_html; //Item Location code appenden
-							$subMenu_itemlist = array_udiff($subMenu_itemlist,$itemLocation_itemList, function($obj_a, $obj_b){ return $obj_a->ID - $obj_b->ID;}); //Entfernt die schon eingetragenen Arrays aus der Itemlist
+							if ($subMenu_itemlist){ //Wenn überhaupt noch Elemente in der Itemlist sind
+								$subMenu_itemlist = array_udiff($subMenu_itemlist,$itemLocation_itemList, function($obj_a, $obj_b){ return $obj_a->ID - $obj_b->ID;}); //Entfernt die schon eingetragenen Arrays aus der Itemlist
+							}
 						endwhile; // Ende iterieren durch Standorte für Kategorie
 						if ($subMenu_itemlist){ //falls jetzt noch items übrig sein sollten werden die in den fallbackpunkt eingeordnet
 							$subMenu_html .= '<li class="menu-item-has-children">' . $setting_fallbacktextico . '<span> '.$setting_fallbackloctext . '</span>' . $sub_html_caret;
