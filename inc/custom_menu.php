@@ -40,9 +40,8 @@ function acf_populate_menu($items, $args){
 		$html_caret = '<div class="caret-wrap 1" tabindex="0"><span class="caret"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg></span></div>';
 		$sub_html_caret = '<div class="caret-wrap 2" tabindex="0"><span class="caret"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg></span></div>'; //das caret Element für die Untermenüs. Keinen Plan wieso aber die div class ist anders, geht bestimmt eleganter zu lösen
 		$setting_menucolor = get_field('menu_color', $menu);
-		$setting_ShowBookable =  boolval(get_field('show_bookableonly',$menu)); //bool ob buchbare gezeigt werden sollen
-		$setting_SortByLocation = boolval(get_field('artikelstandort_anzeigen',$menu)); //bool ob standort berücksichtigt wird
-
+		$setting_fallbackloctext = get_field('fallback_standort', $menu);
+		$setting_fallbacktextico = get_field('fallback_icon', $menu);
 
 
 		// parentItem_vars
@@ -70,11 +69,12 @@ function acf_populate_menu($items, $args){
 				$subMenu_ico_html = returnsvg_html($subMenu_ico_url,$setting_menucolor);
 				$subMenu_name = get_sub_field('cat_name'); //Klarname der entsprechenden Kategorie
 				$subMenu_linkedPage = get_sub_field('linkingpage'); //Seite über die Kategorie
-
-				$subMenu_itemlist = get_cb_items_by_category($subMenu_tax_slug,$setting_ShowBookable); //Checkt erstmal nur, ob für die Kategorie auch Items da sind um welche anzuzeigen
+				$subMenu_bookable_only = boolval(get_sub_field('bookable_only'));
+				$subMenu_sortbylocation = boolval(get_sub_field('display_location'));
+				$subMenu_itemlist = get_cb_items_by_category($subMenu_tax_slug,$subMenu_bookable_only); //Checkt erstmal nur, ob für die Kategorie auch Items da sind um welche anzuzeigen
 				if ($subMenu_itemlist){ //Nur Element hinzufügen wenn es auch items in der Kategorie gibt
 					$subMenu_html .= '<li class="menu-item-has-children"> <a href="'.$subMenu_linkedPage.'">'. $subMenu_ico_html .'<span> '.$subMenu_name.'</span>' . $sub_html_caret . '</a>'; //Menüpunkt für Kategorie hinzufügen
-					if ($setting_SortByLocation) {
+					if ($subMenu_sortbylocation) {
 						$subMenu_html .= '<ul class="sub-menu">';
 						while( have_rows('standortkategorien',$menu) ) : the_row(); //Iteriert durch sämtliche Standorte für eine Kategorie
 
@@ -85,8 +85,7 @@ function acf_populate_menu($items, $args){
 							$itemLocation_tax_url = get_term_link(get_term($itemLocation_tax)) . '?itemcat=' . $subMenu_tax; //Fügt zusätzliche Variable hinzu, wird von taxonomy-cb_locations_category.php abgerufen
 
 							$itemLocation_ico = get_sub_field('standort_icon');
-							$itemLocation_itemList = get_cb_items_by_category($subMenu_tax_slug, $setting_ShowBookable);
-							$itemLocation_itemList = filterPostsByLocation($itemLocation_itemList, $itemLocation_tax_slug);
+							$itemLocation_itemList = filterPostsByLocation($subMenu_itemlist, $itemLocation_tax_slug);
 							$itemLocation_html = '';
 							if ($itemLocation_itemList) {
 								$itemLocation_html = '<li class="menu-item-has-children"> <a href="'.$itemLocation_tax_url.'">'.$itemLocation_ico.'<span> '.$itemLocation_tax_name. '</span>' . $sub_html_caret . '</a>';
@@ -94,7 +93,13 @@ function acf_populate_menu($items, $args){
 								$itemLocation_html .= '</li>'; //Liste für Submenü Location schließen + Listenpunkt schließen
 							}
 							$subMenu_html .= $itemLocation_html; //Item Location code appenden
+							$subMenu_itemlist = array_diff($subMenu_itemlist,$itemLocation_itemList); //Entfernt die schon eingetragenen Arrays aus der Itemlist
 						endwhile; // Ende iterieren durch Standorte für Kategorie
+						if ($subMenu_itemlist){ //falls jetzt noch items übrig sein sollten werden die in den fallbackpunkt eingeordnet
+							$subMenu_html .= '<li class="menu-item-has-children">' . $setting_fallbacktextico . '<span> '.$setting_fallbackloctext . '</span>' . $sub_html_caret;
+							$subMenu_html .= menu_create_itemlines($subMenu_itemlist,$setting_menucolor);
+							$subMenu_html .= '</li>';
+						}
 						$subMenu_html .= '</ul>';
 					}
 
