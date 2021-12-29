@@ -118,7 +118,7 @@ function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True,$css_class=''){
 		$cardMeta_class = 'card__meta card__meta--last card__hidden';
 	}
 	if( $items ):
-		$print = '<div class="slideshow-container"'.$css_class.'>';
+		$print = '<div class="slideshow-container'.$css_class.'">';
 		foreach( $items as $item ):
 			$itemID = $item->ID;
 			$item_title = $item->post_title;
@@ -191,7 +191,7 @@ function create_postgrid_from_posts($items,$hideCardMeta=True,$css_class='') {
 				$itemThumbnailURL = get_the_post_thumbnail_url($itemID);
 				$itemLocAddress = cb_item_locAdress($itemID);
 
-				$print .= '<div class="grid "'.$css_class.'>';
+				$print .= '<div class="grid '.$css_class.'">';
 					$print .= '<div class="card" id="'.$itemID.'">';
 						$print .= '<div class="card__image">';
 							$print .= '<img src="'.esc_url($itemThumbnailURL).'" alt="'.$item_title.'">';
