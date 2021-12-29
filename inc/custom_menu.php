@@ -98,7 +98,7 @@ function acf_populate_menu($items, $args){
 							}
 						endwhile; // Ende iterieren durch Standorte für Kategorie
 						if ($subMenu_itemlist){ //falls jetzt noch items übrig sein sollten werden die in den fallbackpunkt eingeordnet
-							$subMenu_html .= '<li class="menu-item-has-children">' . $setting_fallbacktextico . '<span> '.$setting_fallbackloctext . '</span>' . $sub_html_caret;
+							$subMenu_html .= '<li class="menu-item-has-children"><a>' . $setting_fallbacktextico . '<span> '.$setting_fallbackloctext . '</span>' . $sub_html_caret . '</a>';
 							$subMenu_html .= menu_create_itemlines($subMenu_itemlist,$setting_menucolor);
 							$subMenu_html .= '</li>';
 						}
