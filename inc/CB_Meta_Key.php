@@ -14,13 +14,12 @@ function cb_items_checkmeta_key( $post_id ) {
       foreach ($items_list as $cb_item) {
         if (cb_item_isBookable($cb_item->ID)) {
           update_post_meta($cb_item->ID,'_bookable','1');
-          return;
         }
         else {
           update_post_meta($cb_item->ID,'_bookable','0');
-          return;
         }
       }
+      return;
     }
 }
 add_action( 'save_post', 'cb_items_checkmeta_key' );
