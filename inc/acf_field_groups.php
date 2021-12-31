@@ -2207,7 +2207,7 @@ Breite: 46,6 cm',
 ),
 array(
 'key' => 'field_61549eedb3833',
-'label' => 'Modell',
+'label' => 'Modell des Rades',
 'name' => 'modell',
 'type' => 'text',
 'instructions' => '',
