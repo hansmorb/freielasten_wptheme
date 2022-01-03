@@ -62,8 +62,7 @@ get_header();
 			</div><?php
 			if (wp_is_mobile()){
 				if ($itemlist_for_loc){
-				//echo do_shortcode("[cb_itemgallery itemcat='".$tax_slug." locationcat='".$currentTerm_slug."' hidedefault='false']");
-					echo cb_itemGallery($itemlist_for_loc,0,False); //Gallery iterator 0 weil es nur eine Galllery gibt, hidedefault auf False damit Postmeta immer angezeigt wird
+					echo do_shortcode("[cb_itemgallery itemcat='".$tax_slug."' locationcat='".$currentTerm_slug."' hidedefault='false']");
 				}
 			}
 			else {
