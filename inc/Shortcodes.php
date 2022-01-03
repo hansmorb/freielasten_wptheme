@@ -56,7 +56,7 @@ function shortcode_itemGalleryfromCategory($atts){
 		'itemcat' => '',
 	  'locationcat' => '',
 		'class' => '',
-		'hidedefault' => 'true',//Hide Default not working, that's why its to always
+		'hidedefault' => 'true',
     'sortbyavailability' => 'true'
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
