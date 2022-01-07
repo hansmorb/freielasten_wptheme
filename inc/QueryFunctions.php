@@ -261,10 +261,10 @@ function sortItemsByAvailability($cb_items){
 		$a_time = strtotime(getNextAvailableDay($a));
 		$b_time = strtotime(getNextAvailableDay($b));
 		if ($a_time > $b_time) {
-			return -1;
+			return 1;
 		}
 		elseif ($b_time > $a_time) {
-			return 1;
+			return -1;
 		}
 		else { //randomizes items when time is equal (prevents same items from always showing in front)
 			return rand(0, 1);
