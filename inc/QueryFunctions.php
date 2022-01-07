@@ -258,7 +258,18 @@ function getNextAvailableDay($cb_item){
 
 function sortItemsByAvailability($cb_items){
 	usort($cb_items, function($a,$b){
-		return strtotime(getNextAvailableDay($a)) <=> strtotime(getNextAvailableDay($b));
+		$a_time = strtotime(getNextAvailableDay($a));
+		$b_time = strtotime(getNextAvailableDay($b));
+		if ($a_time > $b_time) {
+			return -1;
+		}
+		elseif ($b_time > $a_time) {
+			return 1;
+		}
+		else { //randomizes items when time is equal (prevents same items from always showing in front)
+			return rand(0, 1);
+		}
+		//return strtotime(getNextAvailableDay($a)) <=> strtotime(getNextAvailableDay($b));
 	});
 	return $cb_items;
 }
