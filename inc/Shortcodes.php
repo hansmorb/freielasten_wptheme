@@ -101,11 +101,14 @@ function shortcode_locationCats($atts){
 		$itemterm_id = $itemterm -> ID;
 		$itemcat_url = '?itemcat=' . $itemterm_id;
 
-		foreach ($itemTerms as $term){
+		foreach ($itemTerms as $key => $term){
 			$itemsForTerm = get_cb_items_by_category($atts['itemcat']); //nimmt alle buchbaren Items der entsprechenden Kategorie
 			$itemsForTerm = filterPostsByLocation($itemsForTerm,$term->slug); //entfernt alle Items, die nicht in der Location sind
 			if ($itemsForTerm) { //Nur wenn in der Location items der angegebenen Kategorie sind wird diese angezeigt
 				$html .= '<a href="'.esc_url( get_term_link( $term ) . $itemcat_url ).'">' . $term->name . '</a>';
+				if ($key != array_key_last($itemTerms)) {
+					$html .= ', '; //adds seperator when not last item
+				}
 			}
 			else {
 				continue;
