@@ -104,23 +104,18 @@ function shortcode_locationCats($atts){
 		foreach ($itemTerms as $key => $term){
 			$itemsForTerm = get_cb_items_by_category($atts['itemcat']); //nimmt alle buchbaren Items der entsprechenden Kategorie
 			$itemsForTerm = filterPostsByLocation($itemsForTerm,$term->slug); //entfernt alle Items, die nicht in der Location sind
-			if ($itemsForTerm) { //Nur wenn in der Location items der angegebenen Kategorie sind wird diese angezeigt
-				$html .= '<a href="'.esc_url( get_term_link( $term ) . $itemcat_url ).'">' . $term->name . '</a>';
-				if ($key != array_key_last($itemTerms)) {
-					$html .= ', '; //adds seperator when not last item
-				}
+
+			if (!$itemsForTerm) { //entfernt alle Terms die nicht items der entsprechenden Kategorie haben
+				unset($itemTerms[$key]);
 			}
-			else {
-				continue;
-			}
+
 		}
 	}
-	else {
-		foreach ($itemTerms as $term){
-			$html .= '<a href="'.esc_url( get_term_link( $term ) ).'">' . $term->name . '</a>';
-			if ($key != array_key_last($itemTerms)) {
-				$html .= ', '; //adds seperator when not last item
-			}
+
+	foreach ($itemTerms as $term) {
+		$html .= '<a href="'.esc_url( get_term_link( $term ) . $itemcat_url ).'">' . $term->name . '</a>';
+		if ($key != array_key_last($itemTerms)) {
+			$html .= ', '; //adds seperator when not last item
 		}
 	}
 	return $html;
