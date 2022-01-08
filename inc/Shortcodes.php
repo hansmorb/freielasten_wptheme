@@ -105,7 +105,7 @@ function shortcode_locationCats($atts){
 			$itemsForTerm = get_cb_items_by_category($atts['itemcat']); //nimmt alle buchbaren Items der entsprechenden Kategorie
 			$itemsForTerm = filterPostsByLocation($itemsForTerm,$term->slug); //entfernt alle Items, die nicht in der Location sind
 			if ($itemsForTerm) { //Nur wenn in der Location items der angegebenen Kategorie sind wird diese angezeigt
-				$html .= '<a href="'.esc_url( get_term_link( $term ) . $itemcat_url ).'"' . $term->name . '</a>';
+				$html .= '<a href="'.esc_url( get_term_link( $term ) . $itemcat_url ).'">' . $term->name . '</a>';
 			}
 			else {
 				continue;
@@ -114,7 +114,7 @@ function shortcode_locationCats($atts){
 	}
 	else {
 		foreach ($itemTerms as $term){
-			$html .= '<a href="'.esc_url( get_term_link( $term ) ).'"' . $term->name . '</a>';
+			$html .= '<a href="'.esc_url( get_term_link( $term ) ).'">' . $term->name . '</a>';
 		}
 	}
 	return $html;
