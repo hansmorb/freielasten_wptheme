@@ -89,6 +89,38 @@ function shortcode_itemGalleryfromCategory($atts){
 
 add_shortcode( 'cb_itemgallery', 'shortcode_itemGalleryfromCategory' );
 
+function shortcode_locationCats($atts){
+	$atts = shortcode_atts( array(
+		'itemcat' => '',
+	),$atts);
+	$html = '';
+	$itemcat_url = '';
+	$itemTerms = get_terms(array('taxonomy' => 'cb_locations_category'));
+	if ($atts['itemcat'] == ''){
+		$itemterm = get_term_by('slug',$atts['itemcat'],'cb_items_category');
+		$itemterm_id = $itemterm -> ID;
+		$itemcat_url = '?itemcat=' . $itemterm_id;
+
+		foreach ($itemTerms as $term){
+			$itemsForTerm = get_cb_items_by_category($atts['itemcat']); //nimmt alle buchbaren Items der entsprechenden Kategorie
+			$itemsForTerm = filterPostsByLocation($itemsForTerm,$term->slug); //entfernt alle Items, die nicht in der Location sind
+			if ($itemsForTerm) { //Nur wenn in der Location items der angegebenen Kategorie sind wird diese angezeigt
+				$html .= '<a href="'.esc_url( get_term_link( $term ) . $itemcat_url ).'"' . $term->name . '</a>';
+			}
+			else {
+				continue;
+			}
+		}
+	}
+	else {
+		foreach ($itemTerms as $term){
+			$html .= '<a href="'.esc_url( get_term_link( $term ) ).'"' . $term->name . '</a>';
+		}
+	}
+	return $html;
+}
+
+add_shortcode( 'cb_locationcats', 'shortcode_locationCats' );
 
 
 
