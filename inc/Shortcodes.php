@@ -96,7 +96,7 @@ function shortcode_locationCats($atts){
 	$html = '';
 	$itemcat_url = '';
 	$itemTerms = get_terms(array('taxonomy' => 'cb_locations_category'));
-	if ($atts['itemcat'] == ''){
+	if ($atts['itemcat'] != ''){
 		$itemterm = get_term_by('slug',$atts['itemcat'],'cb_items_category');
 		$itemterm_id = $itemterm -> ID;
 		$itemcat_url = '?itemcat=' . $itemterm_id;
@@ -118,6 +118,9 @@ function shortcode_locationCats($atts){
 	else {
 		foreach ($itemTerms as $term){
 			$html .= '<a href="'.esc_url( get_term_link( $term ) ).'">' . $term->name . '</a>';
+			if ($key != array_key_last($itemTerms)) {
+				$html .= ', '; //adds seperator when not last item
+			}
 		}
 	}
 	return $html;
