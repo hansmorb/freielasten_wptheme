@@ -446,12 +446,12 @@
 
 .cb-postgrid-item-availability-day.location-closed {
   background-color: #ddd;
-  color: #222;
+  color: #222222a1;
 }
 
 .cb-postgrid-item-availability-day.no-timeframe {
   background-color: #ddd;
-  color: #fff;
+  color: #222222a1;
 }
 
 .cb-postgrid-item-availability-day.booked {
