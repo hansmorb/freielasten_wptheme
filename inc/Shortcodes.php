@@ -112,7 +112,7 @@ function shortcode_locationCats($atts){
 		}
 	}
 
-	foreach ($itemTerms as $term) {
+	foreach ($itemTerms as $key => $term) {
 		$html .= '<a href="'.esc_url( get_term_link( $term ) . $itemcat_url ).'">' . $term->name . '</a>';
 		if ($key != array_key_last($itemTerms)) {
 			$html .= ', '; //adds seperator when not last item
