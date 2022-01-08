@@ -49,6 +49,7 @@ get_header();
 			$tax = $_GET['itemcat'];
 			$tax_slug = get_term($tax)->slug;
 			$tax_name = get_term($tax)->name;
+			$tax_name = empty($tax_name) ? 'Artikel' : $tax_name; //Schreibt "Artikel in Loc" wenn keine tax angegeben ist
 			$currentTerm_slug = get_query_var('term');
 			$currentTerm_name = get_term_by( 'slug', $currentTerm_slug, get_query_var('taxonomy') )->name;
 			$itemlist_for_loc = get_cb_items_by_category($tax_slug);
