@@ -20,6 +20,7 @@ use CommonsBooking\Wordpress\CustomPostType\Timeframe;
  * Optional kann der meta_key für das Kupplungsfeld verändert werden (Standard: Kupplungen)
  * bookableCheck prüft auch, ob der Meta Key _bookable existiert, der wird automatisch beim Speichern jeglicher Posts gesetzt (CB_Meta_Key.php)
  *
+ * DIESE FUNKTION SOLL ERSETZT WERDEN DURCH filter_by_kupplung (sobald ich das implementiert kriege)
  *---------------------------------------------------------------------------------
  * START Get Post by Category + Kupplung
  * ---------------------------------------------------------------------------------
