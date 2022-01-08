@@ -98,6 +98,9 @@ function shortcode_locationCats($atts){
 	$itemTerms = get_terms(array('taxonomy' => 'cb_locations_category'));
 	if ($atts['itemcat'] != ''){
 		$itemterm = get_term_by('slug',$atts['itemcat'],'cb_items_category');
+		echo "<pre>";
+		print_r($itemterm);
+		echo "</pre>";
 		$itemterm_id = $itemterm -> ID;
 		$itemcat_url = '?itemcat=' . $itemterm_id;
 
