@@ -13,7 +13,7 @@ if ( ! function_exists( 'neve_child_load_css' ) ):
 	 */
 	function neve_child_load_css() {
 		wp_enqueue_style( 'neve-child-style', trailingslashit( get_stylesheet_directory_uri() ) . 'style.css', array( 'neve-style' ), NEVE_VERSION );
-		wp_enqueue_script('svg-loader_min', get_stylesheet_directory_uri() . '/inc/js/svg-loader_min.js'); //Lädt SVG Loader (wird von custom_menu.php verwendet um SVG einzufärben)
+		wp_enqueue_script('svg-loader_min', get_stylesheet_directory_uri() . '/inc/View/js/svg-loader_min.js'); //Lädt SVG Loader (wird von custom_menu.php verwendet um SVG einzufärben)
 
 	}
 endif;
