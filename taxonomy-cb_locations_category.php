@@ -67,7 +67,7 @@ get_header();
 				}
 			}
 			else {
-				enqueue_postgrid_styles();
+				require_once(get_stylesheet_directory() . '/inc/View/postGrid.php');
 				if ( $itemlist_for_loc ) {
 					echo create_postgrid_from_posts($itemlist_for_loc);
 				}

@@ -9,6 +9,7 @@
 
 
 function shortcode_postGridfromCategory($atts){
+	require_once(get_stylesheet_directory() . '/inc/View/postGrid.php');
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
 	  'locationcat' => '',
@@ -51,6 +52,7 @@ add_shortcode( 'cb_postgrid', 'shortcode_postGridfromCategory' );
 $galleryIterator = 0;
 
 function shortcode_itemGalleryfromCategory($atts){
+	require_once(get_stylesheet_directory() . '/inc/View/itemGallery.php');
 	global $galleryIterator;
 	$atts = shortcode_atts( array(
 		'itemcat' => '',
