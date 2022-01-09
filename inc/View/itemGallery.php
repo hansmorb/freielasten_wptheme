@@ -40,7 +40,7 @@ function cb_itemGallery($items,$galleryNo=0,$hideCardMeta=True,$css_class=''){
 			$itemID = $item->ID;
 			$item_title = $item->post_title;
 			$item_permalink = get_permalink($itemID);
-			$itemThumbnailURL = get_the_post_thumbnail_url($itemID,'thumbnail');
+			$itemThumbnailURL = get_the_post_thumbnail_url($itemID,'medium');
 			$itemLocAddress = cb_item_locAdress($itemID);
 			$print .= '<div class="'.$class.' fade">';
 				$print .= '<div class="card" id="'.$itemID.'">';
