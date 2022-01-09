@@ -20,9 +20,9 @@ use CommonsBooking\Wordpress\CustomPostType\Timeframe;
  * ---------------------------------------------------------------------------------
 */
 function enqueue_accordion_styles(){
-	wp_register_style('accordion', get_stylesheet_directory_uri() . '/inc/css/accordion.css', __FILE__);
+	wp_register_style('accordion', get_stylesheet_directory_uri() . '/inc/View/css/accordion.css', __FILE__);
 	wp_enqueue_style('accordion');
-	wp_enqueue_script('accordion-js', get_stylesheet_directory_uri() . '/inc/js/accordion.js');
+	wp_enqueue_script('accordion-js', get_stylesheet_directory_uri() . '/inc/View/js/accordion.js');
 
 }
 
