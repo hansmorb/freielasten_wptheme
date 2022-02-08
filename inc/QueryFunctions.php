@@ -172,7 +172,7 @@ function itemGetCalendarData($cb_item,$days=7){
 		$cb_item = get_post($cb_item);
 	}
 	$cb_item_id = $cb_item->ID;
-	$locationId = \CommonsBooking\Repository\Location::getByItem( $cb_item_id, true )[0];
+	$locationId = \CommonsBooking\Repository\Location::getByItem( $cb_item_id, true )[0]->ID;
 	$date  = new DateTime();
 	$today = $date->format( "Y-m-d" );
 	$days_display = array_fill( 0, $days, 'n' );
@@ -198,11 +198,13 @@ function itemGetCalendarData($cb_item,$days=7){
 	}
 	$last_day = $days_dates[ $days - 1 ];
 	// Get data for current item/location combination
-	$calendarData = \CommonsBooking\View\Calendar::getCalendarDataArray(
-		$cb_item_id,
-		$locationId,
-		$today,
-		$last_day
+	$startDay = new Day( $today);
+	$endDay = new Day ( $last_day);
+	$calendarData = \CommonsBooking\View\Calendar::prepareJsonResponse(
+		$startDay,
+		$endDay,
+		[ $locationId ],
+		[ $cb_item_id] 
 	);
 	/*
 	echo "<pre>";
