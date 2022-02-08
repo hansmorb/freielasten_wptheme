@@ -17,3 +17,6 @@ Funktionen:
    -Einige kleinere UM Anpassungen
 
 Nutzt Plugins: Commonsbooking, ACF Pro, ACF Extended, ACF: Font Awesome, ACF Tab & Accordion Titel Icons, Ultimate Member
+
+To-Do: 
+- Performance verbessern
