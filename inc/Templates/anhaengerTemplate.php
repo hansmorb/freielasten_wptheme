@@ -5,8 +5,9 @@ function cb_acfprinttrailer(){
 	echo cb_acfgallery();
 	$foerderlogo = get_field( 'foerderlogo');
 	if ($foerderlogo) {
+		echo "<br> Gefördert von: ";
 		foreach ($foerderlogo as $logo) {
-			echo '<img src="' . esc_url($logo['sizes']['thumbnail']) . '">';
+			echo '<img src="' . esc_url($logo['sizes']['thumbnail']) . '" style="width:50px">';
 		}
 	}
 	?>
