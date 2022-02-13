@@ -3,7 +3,14 @@
 function cb_acfprintlara(){
 
 $poweredby = get_field( 'bereitgestellt_von' );
-if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
+if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; } 
+
+$foerderlogo = get_field( 'foerderlogo');
+if ($foerderlogo) {
+	foreach ($foerderlogo as $logo) {
+		echo '<img src="' . esc_url($logo['sizes']['thumbnail']) . '">';
+	}
+}
 ?>
 <p>
 <?php echo cb_acfgallery('galerie'); ?>
