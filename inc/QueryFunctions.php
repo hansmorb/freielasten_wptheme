@@ -278,7 +278,6 @@ function sortItemsByAvailability($cb_items,$cb_items_availabilities){
 		else { //randomizes items when time is equal (prevents same items from always showing in front)
 			return rand(0, 1);
 		}
-		//return strtotime(getNextAvailableDay($a)) <=> strtotime(getNextAvailableDay($b));
 	});
 	return $cb_items;
 }

@@ -16,11 +16,15 @@ function shortcode_postGridfromCategory($atts){
 		'class' => '',
 		'hidedefault' => 'false',
     'sortbyavailability' => 'true',
-		'kupplung' => ''
+		'kupplung' => '',
+		'mobile' => 'true' //If the element should be shown on mobile
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
   $atts['sortbyavailability'] = filter_var( $atts['sortbyavailability'], FILTER_VALIDATE_BOOLEAN);
-
+  $atts['mobile'] = filter_var($atts['mobile'], FILTER_VALIDATE_BOOLEAN );
+  if (wp_is_mobile() && !$atts['mobile']){
+	  return ""; // does not execute when site is on mobile and mobile is disabled
+  }
 
 	/* Mies dreckiger Workaround bis es die Funktion filterPostsByKupplung gibt*/
 	if ($atts['kupplung'] != '') {
@@ -58,11 +62,15 @@ function shortcode_itemGalleryfromCategory($atts){
 	  'locationcat' => '',
 		'class' => '',
 		'hidedefault' => 'true',
-    'sortbyavailability' => 'true'
+    'sortbyavailability' => 'true',
+	'mobile' => 'true' //If the element should be shown on mobile
 	),$atts);
 	$atts['hidedefault'] = filter_var( $atts['hidedefault'], FILTER_VALIDATE_BOOLEAN );
   $atts['sortbyavailability'] = filter_var( $atts['sortbyavailability'], FILTER_VALIDATE_BOOLEAN);
-
+  $atts['mobile'] = filter_var($atts['mobile'], FILTER_VALIDATE_BOOLEAN );
+  if (wp_is_mobile() && !$atts['mobile']){
+	  return ""; // does not execute when site is on mobile and mobile is disabled
+  }
 	$itemList = get_cb_items_by_category($atts['itemcat']);
 
   if ($atts['locationcat'] != '') {
