@@ -70,7 +70,7 @@ function shortcode_itemGalleryfromCategory($atts){
   }
   $itemAvailabilities = itemListAvailabilities($itemList);
   if ($atts['sortbyavailability']){
-    $itemList = sortItemsByAvailability($itemList,$itemAvailabilites);
+    $itemList = sortItemsByAvailability($itemList,$itemAvailabilities);
   }
 
 	if ($itemList){
