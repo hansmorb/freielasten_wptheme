@@ -3,6 +3,12 @@ function cb_acfprinttrailer(){
 	$poweredby = get_field( 'bereitgestellt_von' );
 	if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
 	echo cb_acfgallery();
+	$foerderlogo = get_field( 'foerderlogo');
+	if ($foerderlogo) {
+		foreach ($foerderlogo as $logo) {
+			echo '<img src="' . esc_url($logo['sizes']['thumbnail']) . '">';
+		}
+	}
 	?>
 <div class="cb_item-top-infos">
 <h3>
