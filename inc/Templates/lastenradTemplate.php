@@ -156,7 +156,8 @@ if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
 <!-- Start der Zubehör und Kupplungen Accordions, zeigt nur values an wenn Zubehör oder Kupplungen gefunden wurden -->
 <?php $kupplungen_checked_values = get_field( 'kupplungen' );
 if ( $kupplungen_checked_values ) :
-$postGrid = create_postgrid_from_posts(get_post_by_category_and_kupplung('anhaenger',$kupplungen_checked_values),(wp_is_mobile() ? False : True )); //Zeigt PostMeta by default an, wenn die mobile Seite aktiv ist
+$postgrid_items = get_post_by_category_and_kupplung('anhaenger',$kupplungen_checked_values);
+$postGrid = create_postgrid_from_posts($postgrid_items,itemListAvailabilities($postgrid_items),(wp_is_mobile() ? False : True )); //Zeigt PostMeta by default an, wenn die mobile Seite aktiv ist
 if ($postGrid != False) {?>
 <button class="accordion"><b><i class="fas fa-link"></i> Passende Anhänger</b> </button>
 <div class="panel">

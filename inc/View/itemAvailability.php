@@ -1,10 +1,17 @@
 <?php
 
-function render_item_availability($cb_item) {
+function render_item_availability($cb_availability) {
 	$print = '<div class="cb-postgrid-item-availability">';
-  [$calendarData,$last_day] = itemGetCalendarData($cb_item);
+	/*
+	echo "<pre>";
+	echo "cb_vailability";
+	print_r($cb_availability);
+	echo "</pre>";
+	*/
+ 	$calendarData = $cb_availability;
 	$date  = new DateTime();
 	$today = $date->format( "Y-m-d" );
+	$last_day = $calendarData['endDate'];
 	$gotStartDate = false;
 	$gotEndDate   = false;
 	$dayIterator  = 0;

@@ -15,7 +15,7 @@ function cb_acfprintzubehoer(){
 	the_field( 'zubehoer_desc' );
 	$compatible_with = get_field( 'attached_to' );
 	if ( $compatible_with ) {
-		$postGrid = create_postgrid_from_posts($compatible_with,(wp_is_mobile() ? False : True ));
+		$postGrid = create_postgrid_from_posts($compatible_with,itemListAvailabilities($compatible_with),(wp_is_mobile() ? False : True ));
 		if ($postGrid != False){
 			echo '<br><h3> <i class="fas fa-link"></i> Kompatibel mit:</h3><br>';
 			echo $postGrid;

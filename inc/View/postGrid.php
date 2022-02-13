@@ -25,7 +25,7 @@ function enqueue_postgrid_styles(){
 *
 */
 
-function create_postgrid_from_posts($items,$hideCardMeta=True,$css_class='') {
+function create_postgrid_from_posts($items,$itemAvailabilities,$hideCardMeta=True,$css_class='') {
   require_once(get_stylesheet_directory() . '/inc/View/itemAvailability.php'); //Um Kartenmeta zu rendern
 	$cardMeta_class = 'card__meta card__meta--last';
 	if ($hideCardMeta){
@@ -36,6 +36,7 @@ function create_postgrid_from_posts($items,$hideCardMeta=True,$css_class='') {
 			$print = '<div class="grid__wrapper">';
 			foreach ($items as $item) {
 				$itemID = $item->ID;
+				$itemAvailability = $itemAvailabilities[$itemID];
 				$item_title = $item->post_title;
 				$item_permalink = get_permalink($itemID);
 				$itemThumbnailURL = get_the_post_thumbnail_url($itemID,'medium');
@@ -50,7 +51,7 @@ function create_postgrid_from_posts($items,$hideCardMeta=True,$css_class='') {
 									$print .= '<a href="'.$item_permalink.'" class="card__title">'.$item_title.'</a>';
 									$print .= '<ul class="'.$cardMeta_class.'">';
 										$print .= '<li><a href="'.$item_permalink.'"><i class="fas fa-map-marker"></i>'.$itemLocAddress.'</a></li>';
-										$print .= '<li>' . render_item_availability($itemID) . '</li>';
+										$print .= '<li>' . render_item_availability($itemAvailability) . '</li>';
 									$print .= '</ul>';
 								$print .= '</div><!-- end:card__overlay-content -->';
 							$print .= '</div><!-- end:card__image -->';

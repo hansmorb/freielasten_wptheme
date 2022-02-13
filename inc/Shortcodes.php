@@ -29,18 +29,17 @@ function shortcode_postGridfromCategory($atts){
 	else {
 		$itemList = get_cb_items_by_category($atts['itemcat']);
 	}
-
   if ($atts['locationcat'] != '') {
     $itemList = filterPostsByLocation($itemList,$atts['locationcat']);
   }
-
+  $itemAvailabilities = itemListAvailabilities($itemList);
   if ($atts['sortbyavailability']){
-    $itemList = sortItemsByAvailability($itemList);
+    $itemList = sortItemsByAvailability($itemList,$itemAvailabilities);
   }
 
 
 	if ($itemList){
-		return create_postgrid_from_posts($itemList,$atts['hidedefault'],$atts['class']);
+		return create_postgrid_from_posts($itemList,$itemAvailabilities,$atts['hidedefault'],$atts['class']);
 	}
 	else {
 		return "no posts found";
@@ -69,13 +68,13 @@ function shortcode_itemGalleryfromCategory($atts){
   if ($atts['locationcat'] != '') {
     $itemList = filterPostsByLocation($itemList,$atts['locationcat']);
   }
-
+  $itemAvailabilities = itemListAvailabilities($itemList);
   if ($atts['sortbyavailability']){
-    $itemList = sortItemsByAvailability($itemList);
+    $itemList = sortItemsByAvailability($itemList,$itemAvailabilites);
   }
 
 	if ($itemList){
-		$gallery_html = cb_itemGallery($itemList,$galleryIterator,$atts['hidedefault'],$atts['class']);
+		$gallery_html = cb_itemGallery($itemList,$itemAvailabilities,$galleryIterator,$atts['hidedefault'],$atts['class']);
 		$galleryIterator = $galleryIterator + 1;
 		?>
 		<script>

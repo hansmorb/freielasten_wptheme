@@ -135,6 +135,14 @@ function filterPostsByLocation($post_list, $locationcat_slug){
 	}
 }
 
+function itemListAvailabilities($cb_itemlist) {
+	$cb_itemlist_availabilities = array();
+	foreach ($cb_itemlist as $itemList_item) {
+		$cb_itemlist_availabilities[$itemList_item->ID] = itemGetCalendarData($itemList_item->ID) ;
+	}
+	return $cb_itemlist_availabilities;
+}
+
 function cb_item_isBookable($cb_item_postID){
   $locations = \CommonsBooking\Repository\Location::getByItem( $cb_item_postID, true );
   if ( count($locations) ) {
@@ -206,17 +214,13 @@ function itemGetCalendarData($cb_item,$days=7){
 		[ $locationId ],
 		[ $cb_item_id] 
 	);
-	/*
-	echo "<pre>";
-	print_r($calendarData);
-	echo "</pre>";
-	*/
-	return [$calendarData,$last_day];
+	return $calendarData;
 }
 
 //returns next available day for cb_item, returns day element
-function getNextAvailableDay($cb_item){
-	[$calendarData,$last_day] = itemGetCalendarData($cb_item);
+function getNextAvailableDay($cb_item,$cb_item_availability){
+	$calendarData = $cb_item_availability;
+	$last_day = $calendarData['endDate'];
 	$date  = new DateTime();
 	$today = $date->format( "Y-m-d" );
 	$gotStartDate = false;
@@ -259,10 +263,12 @@ function getNextAvailableDay($cb_item){
 	return "2500-1-1"; //gibt sehr spätes Datum zurück wenn nix verfügbar ist
 }
 
-function sortItemsByAvailability($cb_items){
-	usort($cb_items, function($a,$b){
-		$a_time = strtotime(getNextAvailableDay($a));
-		$b_time = strtotime(getNextAvailableDay($b));
+function sortItemsByAvailability($cb_items,$cb_items_availabilities){
+	usort($cb_items, function($a,$b) use ($cb_items_availabilities){
+		$a_item_availability = $cb_items_availabilities[$a->ID];
+		$b_item_availability = $cb_items_availabilities[$b->ID];
+		$a_time = strtotime(getNextAvailableDay($a,$a_item_availability));
+		$b_time = strtotime(getNextAvailableDay($b,$b_item_availability));
 		if ($a_time > $b_time) {
 			return 1;
 		}
