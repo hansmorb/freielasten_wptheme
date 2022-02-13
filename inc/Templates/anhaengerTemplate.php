@@ -2,13 +2,13 @@
 function cb_acfprinttrailer(){
 	$poweredby = get_field( 'bereitgestellt_von' );
 	if ($poweredby) { echo '<i> Bereitgestellt von '. $poweredby . '</i>'; }
-	echo cb_acfgallery();
 	$foerderlogo = get_field( 'foerderlogo');
 	if ($foerderlogo) {
 		echo "<br> Gefördert von: ";
 		foreach ($foerderlogo as $logo) {
-			echo '<img src="' . esc_url($logo['sizes']['thumbnail']) . '" style="width:50px">';
+			echo '<img src="' . esc_url($logo['sizes']['thumbnail']) . '" title="' . esc_html($logo['caption']) . '" style="width:50px">';
 		}
+	echo cb_acfgallery();
 	}
 	?>
 <div class="cb_item-top-infos">
