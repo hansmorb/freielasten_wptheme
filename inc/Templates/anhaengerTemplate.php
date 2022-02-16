@@ -8,8 +8,8 @@ function cb_acfprinttrailer(){
 		foreach ($foerderlogo as $logo) {
 			echo '<img src="' . esc_url($logo['sizes']['thumbnail']) . '" title="' . esc_html($logo['caption']) . '" style="width:50px">';
 		}
-	echo cb_acfgallery();
 	}
+	echo cb_acfgallery();
 	?>
 <div class="cb_item-top-infos">
 <h3>
