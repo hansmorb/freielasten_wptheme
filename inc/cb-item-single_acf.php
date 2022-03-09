@@ -56,7 +56,7 @@ function cb_item_single_hook(){
 		cb_acfprintinklusion();
 	}
 }
-add_action( 'cb_item_single_hook', 'cb_item_single_hook');
+add_action( 'commonsbooking_before_item-single', 'cb_item_single_hook');
 
 /*-------------------------------------------------------------------------------
  * ENDE cb-item-single Hook
