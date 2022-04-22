@@ -156,7 +156,7 @@ function cb_item_isBookable($cb_item_postID){
 function cb_item_isItemInLocCat($cb_item_postID,$cb_location_loccat_slug)
 {
 	$locations = \CommonsBooking\Repository\Location::getByItem( $cb_item_postID, true );
-	if ( count($locations) ) {
+	if ( count($locations) && ( $locations[0]->post_type == 'cb_location') ) {
 	return has_term($cb_location_loccat_slug,'cb_locations_category',$locations[0]->ID);
 	}
 	else {
@@ -225,7 +225,6 @@ function getNextAvailableDay($cb_item,$cb_item_availability){
 	$today = $date->format( "Y-m-d" );
 	$gotStartDate = false;
 	$gotEndDate   = false;
-	$dayIterator  = 0;
 	foreach ( $calendarData['days'] as $day => $data ) {
 
 		// Skip additonal days
@@ -242,13 +241,10 @@ function getNextAvailableDay($cb_item,$cb_item_availability){
 		if ( $day == $last_day ) {
 			$gotEndDate = true;
 		}
-		$day_days = date("d", strtotime($day));
-		$day_month = date("m", strtotime($day));
 		// Check day state
 		if ( ! count( $data['slots'] ) ) {
 			continue;
 		} elseif ( $data['holiday'] ) {
-			//echo $cb_item->ID . " holiday";
 			continue;
 		} elseif ( $data['locked'] ) {
 			if ( $data['firstSlotBooked'] && $data['lastSlotBooked'] ) {
