@@ -156,8 +156,8 @@ function cb_item_isBookable($cb_item_postID){
 function cb_item_isItemInLocCat($cb_item_postID,$cb_location_loccat_slug)
 {
 	$locations = \CommonsBooking\Repository\Location::getByItem( $cb_item_postID, true );
-	if ( count($locations) && ( $locations[0]->post_type == 'cb_location') ) {
-	return has_term($cb_location_loccat_slug,'cb_locations_category',$locations[0]->ID);
+	if ( count($locations) && ( reset($locations)->post_type == 'cb_location') ) {
+	return has_term($cb_location_loccat_slug,'cb_locations_category',reset($locations)->ID);
 	}
 	else {
 		return false;
@@ -168,7 +168,7 @@ function cb_item_locAdress($cb_item_postID)
 {
 	$locations = \CommonsBooking\Repository\Location::getByItem( $cb_item_postID, true );
 	if ( count($locations) ) {
-		return $locations[0]->formattedAddressOneLine();
+		return reset($locations)->formattedAddressOneLine();
 	}
 	else {
 		return false;
@@ -180,7 +180,7 @@ function itemGetCalendarData($cb_item,$days=7){
 		$cb_item = get_post($cb_item);
 	}
 	$cb_item_id = $cb_item->ID;
-	$locationId = \CommonsBooking\Repository\Location::getByItem( $cb_item_id, true )[0]->ID;
+	$locationId = reset(\CommonsBooking\Repository\Location::getByItem( $cb_item_id, true ))->ID;
 	$date  = new DateTime();
 	$today = $date->format( "Y-m-d" );
 	$days_display = array_fill( 0, $days, 'n' );
