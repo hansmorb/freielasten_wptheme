@@ -20,7 +20,7 @@ function menu_create_itemlines ($cb_item_postlist,$menucolor) {
 	foreach ($cb_item_postlist as $cb_item_post) {
 		$cb_item_post_ID = $cb_item_post->ID;
 		$cb_item_post_title = $cb_item_post->post_title;
-		$cb_item_post_permalink = get_permalink($cb_item_post);
+		$cb_item_post_permalink = get_permalink($cb_item_post_ID);
 		$cb_item_post_ico = get_field("icon",$cb_item_post_ID);
 		$cb_item_post_ico_html = returnsvg_html($cb_item_post_ico,$menucolor);
 
