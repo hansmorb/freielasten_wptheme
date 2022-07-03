@@ -9,6 +9,9 @@ $container_class = apply_filters( 'neve_container_class_filter', 'container', 's
 
 get_header();
 
+wp_register_style('taxonomy-page', get_stylesheet_directory_uri() . 'taxonomy-page.css', __FILE__);
+wp_enqueue_style('taxonomy-page');
+
 ?>
 <div class="<?php echo esc_attr( $container_class ); ?> single-page-container">
 	<div class="row">
@@ -70,7 +73,19 @@ get_header();
 			else {
 				require_once(get_stylesheet_directory() . '/inc/View/postGrid.php');
 				if ( $itemlist_for_loc ) {
-					echo create_postgrid_from_posts($itemlist_for_loc,$itemAvailabilities);
+					?>
+					<div class="split left">
+						<?php
+						echo create_postgrid_from_posts($itemlist_for_loc,$itemAvailabilities);
+						?>
+					</div>
+
+					<div class="split right">
+						<?php
+							echo do_shortcode("[cb_items_table itemcat='".$tax_slug."' locationcat='".$currentTerm_slug."']");
+						?>
+					</div>
+				<?php
 				}
 			}
 			/**
