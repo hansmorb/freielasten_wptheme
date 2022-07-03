@@ -1,12 +1,6 @@
 <?php
-use CommonsBooking\CB\CB;
-use CommonsBooking\Model\CustomPost;
+
 use CommonsBooking\Model\Day;
-use CommonsBooking\Model\Week;
-use CommonsBooking\Plugin;
-use CommonsBooking\Wordpress\CustomPostType\Item;
-use CommonsBooking\Wordpress\CustomPostType\Location;
-use CommonsBooking\Wordpress\CustomPostType\Timeframe;
 
 
 /* ---------------------------------------------------------------------------------
@@ -40,34 +34,17 @@ function get_post_by_category_and_kupplung($cb_category,$kupplungen,$kupplung_me
 		);
 		array_push($kupplung_queries,$kupplung_query);
 	}
-	$bookable_query = '';
-	if ($bookableCheck){
-		$bookable_query = array(
-			'key' => '_bookable', //Der Meta Key der in der item_single.php gesetzt wird
-			'value' => '1',
-			'compare' => '=',
-		);
-	}
 	//Generate $meta_queries
 	$meta_queries = array(
 	'relation' => 'AND',
-	$kupplung_queries,
-	$bookable_query,
+	$kupplung_queries
 	);
 	// Generate $args array
 	$args = array(
-		'post_type' => 'cb_item',
-		'numberposts' => -1,
-		'tax_query' => array(
-    	array(
-     			'taxonomy' => $tax,
-     			'field' => 'slug',
-     			'terms' => $cb_category
-    		)
-		),
+		'category_slug' => $cb_category,
 		'meta_query' => $meta_queries,
 	);
-	$items_list = get_posts($args);
+	$items_list = \CommonsBooking\Repository\Item::get( $args ,$bookableCheck);
 	return $items_list;
 }
 
@@ -79,44 +56,13 @@ function get_post_by_category_and_kupplung($cb_category,$kupplungen,$kupplung_me
 
 /* Return: WP Post object list */
 function get_cb_items_by_category($cb_category='',$bookableCheck=True){
-	$tax = 'cb_items_category';
-	if ($cb_category != '') {
-		$term = get_term_by('slug', $cb_category, $tax);
-		$termChildren = get_term_children($term->term_id, $tax);
-	}
-	$bookable_query = '';
-	if ($bookableCheck){
-		$bookable_query = array(
-			'key' => '_bookable',
-			'value' => '1', //Nimmt nur Artikel rein die 1 im _bookable meta key haben (wird über CommonsBooking erstellt)
-			'compare' => '=',
-		);
-	}
-	//Generate $meta_queries
-	$meta_queries = array(
-	$bookable_query,
-	);
-	//Generate $tax_queries
-	$tax_query = '';
-	if ($cb_category != ''){
-		$tax_query =
-			array(
-				'taxonomy' => $tax,
-				'field' => 'slug',
-				'terms' => $cb_category
-			);
-	}
-	$tax_queries = array($tax_query,);
 	// Generate $args array
 	$args = array(
-		'post_type' => 'cb_item',
-		'numberposts' => -1,
-		'order' => 'ASC',
-		'orderby' => 'title',
-		'tax_query' => $tax_queries,
-		'meta_query' => $meta_queries,
+		'orderby'			=> 'title',
+		'order'				=> 'ASC',
+		'category_slug' => $cb_category,
 	);
-	$items_list = get_posts($args);
+	$items_list = \CommonsBooking\Repository\Item::get( $args ,$bookableCheck);
 	return $items_list;
 }
 
