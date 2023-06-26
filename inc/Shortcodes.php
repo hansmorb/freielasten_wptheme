@@ -132,6 +132,60 @@ function shortcode_locationCats($atts){
 
 add_shortcode( 'cb_locationcats', 'shortcode_locationCats' );
 
+function shortcode_shortbook($atts) {
+	$atts = shortcode_atts( array(
+		'item_id' => '',
+        'location_id' => ''
+	),$atts);
+    $item = get_post($atts['item_id']);
+    $now = time();
+    $end = new \DateTime();
+    $end->modify('+1 year');
+    $end = $end->getTimestamp();
+	try {
+		$bookings = \CommonsBooking\Repository\Booking::getByTimerange( $now,
+			$end,
+			$atts['location_id'],
+			$atts['item_id'],
+        [],
+        ['confirmed']);
+	}
+	catch ( Exception $e ) {
+		return '<p>Keine Buchungen gefunden</p>';
+	}
+    if (empty($bookings)){
+        return '<p>Keine Buchungen gefunden</p>';
+    }
+	$html = '<div class="cb-shortbook">';
+    $html .= '<table class="cb-shortbook-table">';
+    $html .= '<tr>';
+    $html .= '<th>Datum</th>';
+    $html .= '<th>Tour</th>';
+    $html .= '<th>Abholort</th>';
+    $html .= '<th>Radelnde</th>';
+    $html .= '</tr>';
+    $row = '';
+    foreach ($bookings as $booking){
+        try {
+	        $row .= '<tr>';
+	        $row .= '<td>' . date('d.m.Y', $booking->getStartDate()) . '</td>';
+	        $row .= '<td>' . $booking->getItem()->title() . '</td>';
+	        $row .= '<td>' . $booking->getLocation()->post_title . '</td>';
+	        $row .= '<td>' . $booking->getUserData()->user_nicename . '</td>';
+	        $row .= '</tr>';
+        }
+        catch ( Exception $e ) {
+            $row = '';
+        }
+        $html .= $row;
+    }
+    $html .= '</table>';
+    $html .= '</div>';
+    return $html;
+
+}
+
+add_shortcode( 'cb_shortbook', 'shortcode_shortbook' );
 
 
  ?>
