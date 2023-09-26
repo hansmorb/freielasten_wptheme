@@ -34,7 +34,7 @@ function shortcode_postGridfromCategory($atts){
 		$itemList = get_cb_items_by_category($atts['itemcat']);
 	}
   if ($atts['locationcat'] != '') {
-    $itemList = filterPostsByLocation($itemList,$atts['locationcat']);
+    $itemList = filterPostsByLocationCategory($itemList, $atts['locationcat']);
   }
   $itemAvailabilities = itemListAvailabilities($itemList);
   if ($atts['sortbyavailability']){
@@ -74,7 +74,7 @@ function shortcode_itemGalleryfromCategory($atts){
 	$itemList = get_cb_items_by_category($atts['itemcat']);
 
   if ($atts['locationcat'] != '') {
-    $itemList = filterPostsByLocation($itemList,$atts['locationcat']);
+    $itemList = filterPostsByLocationCategory($itemList, $atts['locationcat']);
   }
   $itemAvailabilities = itemListAvailabilities($itemList);
   if ($atts['sortbyavailability']){
@@ -112,7 +112,7 @@ function shortcode_locationCats($atts){
 
 		foreach ($itemTerms as $key => $term){
 			$itemsForTerm = get_cb_items_by_category($atts['itemcat']); //nimmt alle buchbaren Items der entsprechenden Kategorie
-			$itemsForTerm = filterPostsByLocation($itemsForTerm,$term->slug); //entfernt alle Items, die nicht in der Location sind
+			$itemsForTerm = filterPostsByLocationCategory($itemsForTerm,$term->slug); //entfernt alle Items, die nicht in der Location sind
 
 			if (!$itemsForTerm) { //entfernt alle Terms die nicht items der entsprechenden Kategorie haben
 				unset($itemTerms[$key]);

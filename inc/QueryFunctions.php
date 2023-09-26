@@ -67,7 +67,7 @@ function get_cb_items_by_category($cb_category='',$bookableCheck=True){
 }
 
 /* Filtert sämtliche Artikel heraus die nicht in der entsprechenden Location Kategorie sind*/
-function filterPostsByLocation($post_list, $locationcat_slug){
+function filterPostsByLocationCategory($post_list, $locationcat_slug){
 	if ($post_list && $locationcat_slug){
 		foreach ($post_list as $key => $item){
 			if (!cb_item_isItemInLocCat($item->ID,$locationcat_slug)){
@@ -79,6 +79,37 @@ function filterPostsByLocation($post_list, $locationcat_slug){
 	else {
 		return false;
 	}
+}
+
+/**
+ * Filtert sämtliche Artikel heraus, die nicht am entsprechenden Standort sind
+ *
+ * @param   \CommonsBooking\Model\Item[]  $items
+ * @param          $loc_id
+ *
+ * @return array [sameLoc, otherLocs]
+ */
+function splitItemsByLoc(array $items, $loc_id){
+	$result = [
+		"sameLoc" => [],
+		"otherLocs" => []
+	];
+	if (empty ($items) || empty ($loc_id)) {
+		return $result;
+	}
+	foreach ($items as $key => $item){
+		$locations = \CommonsBooking\Repository\Location::getByItem( $item->ID, true );
+		$locIDs = array_map(function($location) {
+			return $location->ID;
+		}, $locations);
+		if (in_array($loc_id,$locIDs)){
+			$result["sameLoc"][] = $item;
+		}
+		else {
+			$result["otherLocs"][] = $item;
+		}
+	}
+	return $result;
 }
 
 function itemListAvailabilities($cb_itemlist) {
@@ -125,10 +156,12 @@ function itemGetCalendarData($cb_item,$days=7){
 	if (!is_object($cb_item)) {
 		$cb_item = get_post($cb_item);
 	}
-	$cb_item_id = $cb_item->ID;
-	$locationId = reset(\CommonsBooking\Repository\Location::getByItem( $cb_item_id, true ))->ID;
-	$date  = new DateTime();
-	$today = $date->format( "Y-m-d" );
+	$cb_item_id   = $cb_item->ID;
+	$locArray        = \CommonsBooking\Repository\Location::getByItem( $cb_item_id,
+		TRUE );
+	$locationId   = reset( $locArray )->ID;
+	$date         = new DateTime();
+	$today        = $date->format( "Y-m-d" );
 	$days_display = array_fill( 0, $days, 'n' );
 	$days_cols    = array_fill( 0, $days, '<col>' );
 	$month        = date( "m" );

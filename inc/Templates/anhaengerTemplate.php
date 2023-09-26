@@ -104,15 +104,29 @@ function cb_acfprinttrailer(){
 		<?php
 		$kupplungen_checked_values = get_field( 'kupplungen' );
 		if ( $kupplungen_checked_values ) :
+			$currentItem = get_post();
+			$currentLoc = \CommonsBooking\Repository\Location::getByItem( $currentItem->ID, true );
+			$currentLoc = reset($currentLoc);
 			$postgrid_items = get_post_by_category_and_kupplung('fahrrad',$kupplungen_checked_values);
-			$postGrid = create_postgrid_from_posts($postgrid_items,itemListAvailabilities($postgrid_items),(wp_is_mobile() ? False : True ));
-			if ($postGrid != False) { ?>
+			$splitResults = splitItemsByLoc($postgrid_items,$currentLoc->ID);
+			$sameLoc = $splitResults["sameLoc"];
+			$otherLocs = $splitResults["otherLocs"];
+			$postGridsameLoc = create_postgrid_from_posts($sameLoc,itemListAvailabilities($sameLoc), ! wp_is_mobile() );
+            $postGridotherLocs = create_postgrid_from_posts($otherLocs,itemListAvailabilities($otherLocs), ! wp_is_mobile() );
+
+			if ($postGridsameLoc) { ?>
+                <h2>Am selben Standort: </h2>
 				<?php
-				echo $postGrid;
+				echo $postGridsameLoc;
 			}
-			else {
-				echo "Leider wurden keine kompatiblen Räder gefunden";
-			}
+			if ( $postGridotherLocs ) { ?>
+                <h2>An anderen Standorten: </h2>
+                <?php
+                echo $postGridotherLocs;
+            }
+            if ( ! $postGridsameLoc && ! $postGridotherLocs ) {
+                echo "Keine kompatiblen Räder gefunden";
+            }
 		endif;
 		?>
 	</p>

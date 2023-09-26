@@ -85,7 +85,7 @@ function acf_populate_menu($items, $args){
 							$itemLocation_tax_url = get_term_link(get_term($itemLocation_tax)) . '?itemcat=' . $subMenu_tax; //Fügt zusätzliche Variable hinzu, wird von taxonomy-cb_locations_category.php abgerufen
 
 							$itemLocation_ico = get_sub_field('standort_icon');
-							$itemLocation_itemList = filterPostsByLocation($subMenu_itemlist, $itemLocation_tax_slug);
+							$itemLocation_itemList = filterPostsByLocationCategory($subMenu_itemlist, $itemLocation_tax_slug);
 							$itemLocation_html = '';
 							if ($itemLocation_itemList) {
 								$itemLocation_html = '<li class="menu-item-has-children"> <a href="'.$itemLocation_tax_url.'">'.$itemLocation_ico.'<span> '.$itemLocation_tax_name. '</span>' . $sub_html_caret . '</a>';

@@ -165,18 +165,36 @@ if ($foerderlogo) {
 <?php $kupplungen_checked_values = get_field( 'kupplungen' );
 if ( $kupplungen_checked_values ) :
 $postgrid_items = get_post_by_category_and_kupplung('anhaenger',$kupplungen_checked_values);
-$postGrid = create_postgrid_from_posts($postgrid_items,itemListAvailabilities($postgrid_items),(wp_is_mobile() ? False : True )); //Zeigt PostMeta by default an, wenn die mobile Seite aktiv ist
-if ($postGrid != False) {?>
+$currentItem = get_post();
+$currentLoc = \CommonsBooking\Repository\Location::getByItem( $currentItem->ID, true );
+$currentLoc = reset($currentLoc);
+$splitResults = splitItemsByLoc($postgrid_items,$currentLoc->ID);
+$sameLoc = $splitResults["sameLoc"];
+$otherLocs = $splitResults["otherLocs"];
+if (! empty($sameLoc) ) {
+    $postGridSameLoc = create_postgrid_from_posts($sameLoc,itemListAvailabilities($sameLoc), ! wp_is_mobile() ); //Zeigt PostMeta by default an, wenn die mobile Seite aktiv ist
+}
+$postGridOtherLocs = create_postgrid_from_posts($otherLocs,itemListAvailabilities($otherLocs),(wp_is_mobile() ? False : True )); //Zeigt PostMeta by default an, wenn die mobile Seite aktiv ist
+if ($postGridOtherLocs || $postGridSameLoc ) {?>
 <button class="accordion"><b><i class="fas fa-link"></i> Passende Anhänger</b> </button>
 <div class="panel">
-	<p>
-		<?php	 ?>
+    <?php if (! empty ($postGridSameLoc) ) { ?>
+    <p>
+        <h3>
+            Anhänger am selben Standort: <br>
+        </h3>
+    </p>
+        <?php
+        echo $postGridSameLoc; } ?>
+		<?php if ($postGridOtherLocs) { ?>
+        <p>
 				<h3>
-					Anhänger: <br>
+					Anhänger an anderen Standorten: <br>
 				</h3>
 				<?php
-				echo $postGrid; ?>
+				echo $postGridOtherLocs; ?>
 	</p>
+            <?php } ?>
 </div>
 <?php
   } endif;
