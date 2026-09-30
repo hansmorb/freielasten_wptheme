@@ -157,7 +157,7 @@ add_filter('wp_nav_menu_objects', 'menuobject_icons', 10, 2);
 function color_menu_items($items) {
     preg_match_all('/menu-item-([0-9]{1,10})/ ', $items, $matches);
 		$st = '';
-		$nav_menu = '#nv-primary-navigation-top';
+		$nav_menu = '#nv-primary-navigation-desktop-top';
 		if (wp_is_mobile()){
 			$nav_menu = '#nv-primary-navigation-sidebar';
 		}
