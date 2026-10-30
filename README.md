@@ -16,6 +16,8 @@ Freie Lasten Theme 0.7 auf den Schultern des Neve Themes
 
    -Einige kleinere UM Anpassungen
 
+   -Anzeigen des aktuellen Jahrs im Footer
+
 Nutzt Plugins: Commonsbooking, ACF Pro, ACF Extended, ACF: Font Awesome, ACF Tab & Accordion Titel Icons, Ultimate Member
 
 Ich werde aber auch hier versuchen so weit wie es geht die einzelnen Funktionen zu beschreiben.
@@ -89,3 +91,7 @@ Fügt SHortcodes cb_itemgallery, cb_postgrid und cb_locationcats hinzu. Die Funk
 * Die Ausgangsfunktion, für alle  Custom Felder auf Lastenrad, Anhänger, Inklusionsräder Seiten etc.
 * Nutzt den Action Hook 'commonsbooking_before_item-single' (ab CB 2.7) um die Templates einzubinden
 * alle Templates für die jeweiligen ARtikel liegen in inc/Templates
+
+###  inc/current_year.php 
+
+*Über wp_date( 'Y' ) wird das aktuelle Kalenderjahr für den Platzhalter {current_year} eingefügt
