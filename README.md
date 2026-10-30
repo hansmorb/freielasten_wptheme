@@ -94,4 +94,4 @@ Fügt SHortcodes cb_itemgallery, cb_postgrid und cb_locationcats hinzu. Die Funk
 
 ###  inc/current_year.php 
 
-*Über wp_date( 'Y' ) wird das aktuelle Kalenderjahr für den Platzhalter {current_year} eingefügt
+* Über wp_date( 'Y' ) wird das aktuelle Kalenderjahr für den Platzhalter {current_year} eingefügt
